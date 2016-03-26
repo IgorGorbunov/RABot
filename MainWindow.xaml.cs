@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using ContextMenu = System.Windows.Forms.ContextMenu;
+using MenuItem = System.Windows.Forms.MenuItem;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace RABot
@@ -21,11 +24,11 @@ namespace RABot
     /// </summary>
     public partial class MainWindow : Window
     {
-        private System.Windows.Forms.NotifyIcon _ni;
+        private NotifyIcon _ni;
 
         private void SetIcon()
         {
-            _ni = new System.Windows.Forms.NotifyIcon
+            _ni = new NotifyIcon
             {
                 Icon = Properties.Resources.chart,
                 Visible = true
@@ -35,6 +38,15 @@ namespace RABot
                 Show();
                 WindowState = WindowState.Normal;
             };
+
+            MenuItem[] menuItems = new MenuItem[1];
+            MenuItem menuItem = new MenuItem();
+            menuItem.Index = 0;
+            menuItem.Text = "Выход";
+            menuItem.Click += menuExit_Click;
+            menuItems[0] = menuItem;
+
+            _ni.ContextMenu = new ContextMenu(menuItems);
         }
 
         public MainWindow()
@@ -55,6 +67,11 @@ namespace RABot
         private void Window_Closed_1(object sender, EventArgs e)
         {
             _ni.Dispose();
+        }
+
+        private void menuExit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
