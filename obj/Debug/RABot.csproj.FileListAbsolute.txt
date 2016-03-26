@@ -1,2 +1,15 @@
 C:\Users\igor\AppData\Local\Temporary Projects\RABot\bin\Debug\RABot.exe.config
 D:\Work\Coding\Github\repos\RABot\RABot\bin\Debug\RABot.exe.config
+D:\Work\Coding\Github\repos\RABot\bin\Debug\RABot.exe.config
+D:\Work\Coding\Github\repos\RABot\bin\Debug\RABot.exe
+D:\Work\Coding\Github\repos\RABot\bin\Debug\RABot.pdb
+D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.csprojResolveAssemblyReference.cache
+D:\Work\Coding\Github\repos\RABot\obj\Debug\MainWindow.baml
+D:\Work\Coding\Github\repos\RABot\obj\Debug\MainWindow.g.cs
+D:\Work\Coding\Github\repos\RABot\obj\Debug\App.g.cs
+D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot_MarkupCompile.cache
+D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.g.resources
+D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.Properties.Resources.resources
+D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.csproj.GenerateResource.Cache
+D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.exe
+D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.pdb

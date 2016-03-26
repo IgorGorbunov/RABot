@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace RABot
 {
@@ -20,9 +21,40 @@ namespace RABot
     /// </summary>
     public partial class MainWindow : Window
     {
+        private System.Windows.Forms.NotifyIcon _ni;
+
+        private void SetIcon()
+        {
+            _ni = new System.Windows.Forms.NotifyIcon
+            {
+                Icon = Properties.Resources.chart,
+                Visible = true
+            };
+            _ni.DoubleClick += delegate
+            {
+                Show();
+                WindowState = WindowState.Normal;
+            };
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            SetIcon();
+        }
+
+        private void Window_StateChanged_1(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                Hide();
+            }
+        }
+
+        private void Window_Closed_1(object sender, EventArgs e)
+        {
+            _ni.Dispose();
         }
     }
 }
