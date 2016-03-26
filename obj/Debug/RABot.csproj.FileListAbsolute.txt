@@ -1,0 +1,2 @@
+C:\Users\igor\AppData\Local\Temporary Projects\RABot\bin\Debug\RABot.exe.config
+D:\Work\Coding\Github\repos\RABot\RABot\bin\Debug\RABot.exe.config
