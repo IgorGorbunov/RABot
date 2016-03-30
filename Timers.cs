@@ -15,7 +15,7 @@ public static class Timers
 
     private static DateTime _startOpen = new DateTime(1,1,1,9,55,0);
     private static DateTime _endOpen = new DateTime(1, 1, 1, 10, 10, 0);
-    private static DateTime _startCloce = new DateTime(1, 1, 1, 18, 30, 0);
+    private static DateTime _startClose = new DateTime(1, 1, 1, 18, 30, 0);
     private static DateTime _endClose = new DateTime(1, 1, 1, 18, 45, 0);
 
     public static void InitTimers(Label labelMoex, Label labelLocal)
@@ -36,6 +36,7 @@ public static class Timers
     {
         DateTime moexTime = DateTime.Now.AddHours(-1);
         _labelMoex.Content = moexTime.ToLongTimeString();
+        SetStyle();
     }
 
     private static void TimerLocalTick(Object myObject, EventArgs myEventArgs)
@@ -47,9 +48,29 @@ public static class Timers
     {
         DateTime now = DateTime.Now.AddHours(-1);
         DateTime nowTime = new DateTime(1,1,1, now.Hour, now.Minute, now.Second);
-        if (nowTime > _startOpen)
+        if (nowTime > _startOpen &&
+            nowTime < _endOpen)
         {
-            
+            _labelMoex.Foreground = Brushes.Blue;
+            _labelLocal.Foreground = Brushes.Blue;
+        }
+        else if (nowTime > _endOpen &&
+                nowTime < _startClose)
+        {
+            _labelMoex.Foreground = Brushes.Green;
+            _labelLocal.Foreground = Brushes.Green;
+        }
+        else if (nowTime > _startClose &&
+                nowTime < _endClose)
+        {
+            _labelMoex.Foreground = Brushes.Red;
+            _labelLocal.Foreground = Brushes.Red;
+        }
+        else if (nowTime > _endClose ||
+                nowTime < _startOpen)
+        {
+            _labelMoex.Foreground = Brushes.Pink;
+            _labelLocal.Foreground = Brushes.Pink;
         }
     }
 }
