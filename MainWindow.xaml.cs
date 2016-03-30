@@ -71,6 +71,7 @@ namespace RABot
             {
                 SetIcon();
                 RABotProgram.SetTempFolder();
+                Timers.InitTimers(LabelMoexTime, LabelLocalTime);
                 NetClass.StartPing(ImgNetConn, ImgSlConn);
             }
             catch (Exception)

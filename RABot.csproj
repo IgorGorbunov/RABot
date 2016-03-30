@@ -64,6 +64,7 @@
     </ApplicationDefinition>
     <Compile Include="NetClass.cs" />
     <Compile Include="RABotProgram.cs" />
+    <Compile Include="Timers.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
