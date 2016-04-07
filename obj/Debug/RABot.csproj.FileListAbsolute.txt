@@ -13,3 +13,5 @@ D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.Properties.Resources.resources
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.csproj.GenerateResource.Cache
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.exe
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.pdb
+D:\Work\Coding\Github\repos\RABot\bin\Debug\Microsoft.Office.Interop.Excel.dll
+D:\Work\Coding\Github\repos\RABot\bin\Debug\Office.dll

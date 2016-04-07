@@ -14,9 +14,17 @@ public class TradeInstrument
     public enum Issuer
     {
         /// <summary>
+        /// Евродоллар
+        /// </summary>
+        EURUSD,
+        /// <summary>
         /// Отсутствующий эмитент
         /// </summary>
         None,
+        /// <summary>
+        /// Эон
+        /// </summary>
+        Eon,
         /// <summary>
         /// ФСК
         /// </summary>
@@ -33,6 +41,18 @@ public class TradeInstrument
         /// Лукойл
         /// </summary>
         Lukoil,
+        /// <summary>
+        /// ММК
+        /// </summary>
+        Mmk,
+        /// <summary>
+        /// Мвидео
+        /// </summary>
+        Mvideo,
+        /// <summary>
+        /// Мосбиржа
+        /// </summary>
+        Moex,
         /// <summary>
         /// МТС
         /// </summary>
@@ -66,9 +86,53 @@ public class TradeInstrument
         /// </summary>
         SurgutNfgAp,
         /// <summary>
+        /// Уралкалий
+        /// </summary>
+        Uralkaliy,
+        /// <summary>
         /// ВТБ
         /// </summary>
-        Vtb
+        Vtb,
+        /// <summary>
+        /// Фьючерс на нефть WTI
+        /// </summary>
+        FWTI,
+        /// <summary>
+        /// Фьючерс на доллар-рубль
+        /// </summary>
+        FUSDRUR,
+        /// <summary>
+        /// Фьючерс на золото
+        /// </summary>
+        FGold,
+        /// <summary>
+        /// Фьючерс на Евро
+        /// </summary>
+        FEU,
+        /// <summary>
+        /// Фьючерс на акции Газпрома
+        /// </summary>
+        FGazprom,
+        /// <summary>
+        /// Фьючерс на акции ГмкНорникеля
+        /// </summary>
+        FGmkNorNikel,
+        /// <summary>
+        /// Фьючерс на обыкновенные акции Сбербанка
+        /// </summary>
+        FSberbankAo,
+        /// <summary>
+        /// Фьючерс на привилигерованные акции Сбербанка
+        /// </summary>
+        FSberbankAp,
+        /// <summary>
+        /// Фьючерс на акции ВТБ
+        /// </summary>
+        FVtb,
+        /// <summary>
+        /// Фьючерс на акции Магнита
+        /// </summary>
+        FMagnit
     }
 
     /// <summary>
@@ -148,7 +212,7 @@ public class TradeInstrument
         return null;
     }
     /// <summary>
-    /// Метод эмитент по его коду
+    /// Метод возвращает эмитент по его коду
     /// </summary>
     /// <param name="issuerCode">Код эмитента</param>
     /// <returns></returns>
@@ -183,6 +247,58 @@ public class TradeInstrument
             case "VTBR":
                 return Issuer.Vtb;
         }
+        return Issuer.None;
+    }
+    /// <summary>
+    /// Метод возвращает эмитент по его названию
+    /// </summary>
+    /// <param name="issureName">Название эмитента</param>
+    /// <param name="isFutures">Да, если это фьючерс</param>
+    /// <returns></returns>
+    public static Issuer GetIssuer(string issureName, bool isFutures)
+    {
+        if (isFutures)
+        {
+            switch (issureName)
+            {
+                case "WTI":
+                    return Issuer.FWTI;
+                case "USDRUR":
+                    return Issuer.FUSDRUR;
+                case "GD":
+                    return Issuer.FGold;
+                case "EU":
+                    return Issuer.FEU;
+                case "ГП":
+                    return Issuer.FGazprom;
+                case "ГМК":
+                    return Issuer.FGmkNorNikel;
+                case "Сбер":
+                    return Issuer.FSberbankAo;
+                case "Сберп":
+                    return Issuer.FSberbankAp;
+                case "ВТБ":
+                    return Issuer.FVtb;
+                case "Магнит":
+                    return Issuer.FMagnit;
+            }
+        }
+        switch (issureName)
+        {
+            case "Уралкалий":
+                return Issuer.Uralkaliy;
+            case "Мосбиржа":
+                return Issuer.Moex;
+            case "М.Видео":
+                return Issuer.Mvideo;
+            case "Э.ОН":
+                return Issuer.Eon;
+            case "ММК":
+                return Issuer.Mmk;
+            case "EURUSD":
+                return Issuer.EURUSD;
+        }
+        
         return Issuer.None;
     }
     

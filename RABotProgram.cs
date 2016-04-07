@@ -49,5 +49,42 @@ public static class RABotProgram
         }
         return path;
     }
+
+    public static void SetLittleStops()
+    {
+        if (Clipboard.ContainsText())
+        {
+            FindInstruments(Clipboard.GetText());
+        }
+    }
+
+    private static Dictionary<TradeInstrument.Issuer, double> FindInstruments(string text)
+    {
+        Dictionary<TradeInstrument.Issuer, double> dictionary = new Dictionary<TradeInstrument.Issuer, double>();
+        string[] lineSplit = text.Split('\n', '\r');
+        bool isFutures = true;
+        foreach (string line in lineSplit)
+        {
+            if (!string.IsNullOrEmpty(line))
+            {
+                string lineWoCommas = line.Trim(':', ';');
+                if (lineWoCommas == SLSettings.FuturesName)
+                {
+                    isFutures = true;
+                    continue;
+                }
+                if (lineWoCommas == SLSettings.StocksName)
+                {
+                    isFutures = false;
+                    continue;
+                }
+                string[] issuerAndStop = lineWoCommas.Split(' ');
+                TradeInstrument.Issuer issuer = TradeInstrument.GetIssuer(issuerAndStop[0], isFutures);
+                dictionary.Add(issuer, StringFunctions.Parse(issuerAndStop[1]));
+            }
+            
+        }
+        return dictionary;
+    }
 }
 

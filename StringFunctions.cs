@@ -92,6 +92,11 @@ public static class StringFunctions
         return null;
     }
 
+    public static double Parse(string s)
+    {
+        return double.Parse(s.Replace(",", "."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+    }
+
     private static string GetClearDefinedStringChar(char c)
     {
         string ss = c.ToString().ToUpper();

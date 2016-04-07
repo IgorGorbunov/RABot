@@ -6,12 +6,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Button x:Name="BttnTest" Content="Button" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnTest_Click"/>
+        <Button x:Name="BttnAddLittleStops" Grid.Row="1" Content="Добавить &quot;малую&quot; табличку" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnAddLittleStops_Click"/>
         <Grid Grid.Column="1"  Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
