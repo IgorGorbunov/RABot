@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Forms;
 
 
@@ -50,15 +51,32 @@ public static class RABotProgram
         return path;
     }
 
-    public static void SetLittleStops()
+    public static void SetLittleStops(CollectionViewSource itemCollectionViewSource)
     {
         if (Clipboard.ContainsText())
         {
-            FindInstruments(Clipboard.GetText());
+            Dictionary <TradeInstrument.Issuer, double> list = GetInstruments(Clipboard.GetText());
+            FillLittleTable(list, itemCollectionViewSource);
         }
     }
 
-    private static Dictionary<TradeInstrument.Issuer, double> FindInstruments(string text)
+    private static void FillLittleTable(Dictionary<TradeInstrument.Issuer, double> instrumentList, CollectionViewSource itemCollectionViewSource)
+    {
+        List<TableViewer> deals = new List<TableViewer>();
+        foreach (KeyValuePair<TradeInstrument.Issuer, double> dealProps in instrumentList)
+        {
+            TableViewer dealParams = new TableViewer();
+            dealParams.Instrument = TradeInstrument.GetIssuerName(dealProps.Key);
+            dealParams.IsLong = false;
+            dealParams.OpenValue = 0.0;
+            dealParams.StopValue = dealProps.Value;
+            dealParams.Profit = 0.0;
+            deals.Add(dealParams);
+        }
+        itemCollectionViewSource.Source = deals;
+    }
+
+    private static Dictionary<TradeInstrument.Issuer, double> GetInstruments(string text)
     {
         Dictionary<TradeInstrument.Issuer, double> dictionary = new Dictionary<TradeInstrument.Issuer, double>();
         string[] lineSplit = text.Split('\n', '\r');

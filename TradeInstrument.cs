@@ -182,6 +182,10 @@ public class TradeInstrument
     {
         switch (issuer)
         {
+            case Issuer.EURUSD:
+                return "EURUSD";
+            case Issuer.Eon:
+                return "Э.ОН";
             case Issuer.Fsk:
                 return "ФСК";
             case Issuer.Gazprom:
@@ -190,6 +194,12 @@ public class TradeInstrument
                 return "ГМКНорНикель";
             case Issuer.Lukoil:
                 return "Лукойл";
+            case Issuer.Mvideo:
+                return "М.Видео";
+            case Issuer.Mmk:
+                return "ММК";
+            case Issuer.Moex:
+                return "Мосбиржа";
             case Issuer.Mts:
                 return "МТС";
             case Issuer.Rosneft:
@@ -206,8 +216,31 @@ public class TradeInstrument
                 return "СургутНефтеГаз ао";
             case Issuer.SurgutNfgAp:
                 return "СургутНефтеГаз ап";
+            case Issuer.Uralkaliy:
+                return "Уралкалий";
             case Issuer.Vtb:
                 return "ВТБ";
+            case Issuer.FWTI:
+                return "ФWTI";
+            case Issuer.FUSDRUR:
+                return "ФUSDRUR";
+            case Issuer.FGold:
+                return "ФGD";
+            case Issuer.FEU:
+                return "ФEU";
+            case Issuer.FGazprom:
+                return "ФГазпром";
+            case Issuer.FGmkNorNikel:
+                return "ФГмкНорНикель";
+            case Issuer.FSberbankAo:
+                return "ФСбербанк ао";
+            case Issuer.FSberbankAp:
+                return "ФСбербанк ап";
+            case Issuer.FVtb:
+                return "ФВТБ";
+            case Issuer.FMagnit:
+                return "ФМагнит";
+
         }
         return null;
     }

@@ -82,6 +82,7 @@
     <Compile Include="RABotProgram.cs" />
     <Compile Include="SLSettings.cs" />
     <Compile Include="StringFunctions.cs" />
+    <Compile Include="TableViewer.cs" />
     <Compile Include="Timers.cs" />
     <Compile Include="TradeInstrument.cs" />
     <Page Include="MainWindow.xaml">

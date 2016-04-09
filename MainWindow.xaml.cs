@@ -110,7 +110,8 @@ namespace RABot
 
         private void BttnAddLittleStops_Click(object sender, RoutedEventArgs e)
         {
-            RABotProgram.SetLittleStops();
+            CollectionViewSource itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSourceLittleTable"));
+            RABotProgram.SetLittleStops(itemCollectionViewSource);
         }
     }
 }
