@@ -15,6 +15,9 @@ public static class RABotProgram
     public static string TempFolder;
 
     private const string TempFolderName = "RAbot";
+    private const string LittleTableFileName = "littleTable.txt";
+
+    private static Dictionary<DateTime, Dictionary<TradeInstrument.Issuer, double>> _littleStops; 
 
     public static void SetTempFolder()
     {
@@ -53,10 +56,37 @@ public static class RABotProgram
 
     public static void SetLittleStops(CollectionViewSource itemCollectionViewSource)
     {
+        _littleStops = new Dictionary<DateTime, Dictionary<TradeInstrument.Issuer, double>>();
         if (Clipboard.ContainsText())
         {
             Dictionary <TradeInstrument.Issuer, double> list = GetInstruments(Clipboard.GetText());
             FillLittleTable(list, itemCollectionViewSource);
+            _littleStops.Add(DateTime.Today, list);
+        }
+    }
+
+    public static void SaveLittleStops()
+    {
+        string filePath = Path.Combine(Application.StartupPath, LittleTableFileName);
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+        }
+        RecordLittleTable(filePath, DateTime.Today, _littleStops[DateTime.Today]);
+    }
+
+    private static void RecordLittleTable(string filePath, DateTime date, Dictionary <TradeInstrument.Issuer, double> values)
+    {
+        using (StreamWriter streamWriter = new StreamWriter(filePath, true, Encoding.UTF8))
+        {
+            streamWriter.WriteLine(date.ToShortDateString());
+            foreach (KeyValuePair <TradeInstrument.Issuer, double> issuer in values)
+            {
+                string line = string.Format
+                        ("{0};{1};{2};{3};{4}", issuer.Key, 0, 0.0, issuer.Value, 0);
+                streamWriter.WriteLine(line);
+            }
+            streamWriter.Close();
         }
     }
 

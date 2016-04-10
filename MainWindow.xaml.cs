@@ -112,6 +112,7 @@ namespace RABot
         {
             CollectionViewSource itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSourceLittleTable"));
             RABotProgram.SetLittleStops(itemCollectionViewSource);
+            RABotProgram.SaveLittleStops();
         }
     }
 }
