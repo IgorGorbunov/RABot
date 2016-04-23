@@ -100,7 +100,7 @@ public static class RABotProgram
             dealParams.IsLong = false;
             dealParams.OpenValue = 0.0;
             dealParams.StopValue = dealProps.Value;
-            dealParams.Profit = 0.0;
+            dealParams.Profit = null;
             deals.Add(dealParams);
         }
         itemCollectionViewSource.Source = deals;

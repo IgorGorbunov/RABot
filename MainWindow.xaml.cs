@@ -1,27 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Forms;
-using Application = System.Windows.Forms.Application;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 using MenuItem = System.Windows.Forms.MenuItem;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace RABot
 {
@@ -31,7 +14,34 @@ namespace RABot
     public partial class MainWindow
     {
         private NotifyIcon _ni;
-        
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            try
+            {
+                SetIcon();
+                RABotProgram.SetTempFolder();
+                Timers.InitTimers(LabelMoexTime, LabelLocalTime);
+                NetClass.StartPing(ImgNetConn, ImgSlConn);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                
+            }
+        }
+
+        private void CleanUp()
+        {
+            NetClass.DisposeAsync();
+            RABotProgram.DeleteTempFolder();
+            _ni.Dispose();
+        }
 
         private void SetIcon()
         {
@@ -55,35 +65,10 @@ namespace RABot
 
             _ni.ContextMenu = new ContextMenu(menuItems);
         }
-        
 
-        private void CleanUp()
-        {
-            NetClass.DisposeAsync();
-            RABotProgram.DeleteTempFolder();
-            _ni.Dispose();
-        }
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            try
-            {
-                SetIcon();
-                RABotProgram.SetTempFolder();
-                Timers.InitTimers(LabelMoexTime, LabelLocalTime);
-                NetClass.StartPing(ImgNetConn, ImgSlConn);
-            }
-            catch (Exception)
-            {
+        //------------------------------------------------------------------------------------
 
-                throw;
-            }
-            finally
-            {
-                
-            }
-        }
 
         private void Window_StateChanged_1(object sender, EventArgs e)
         {
@@ -114,5 +99,23 @@ namespace RABot
             RABotProgram.SetLittleStops(itemCollectionViewSource);
             RABotProgram.SaveLittleStops();
         }
+
+        private void DgLittleTable_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            TableViewer item = e.Row.Item as TableViewer;
+            if (item != null)
+            {
+                if (item.IsNullValue())
+                {
+                    e.Row.Background = System.Windows.Media.Brushes.Yellow;
+                }
+                else
+                {
+                    e.Row.Background = System.Windows.Media.Brushes.White;
+                }
+            }
+        }
+
+
     }
 }

@@ -74,6 +74,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="VM_Little_table\BigStopToColorConverter.cs" />
+    <Compile Include="VM_Little_table\NullValToColorConverter.cs" />
     <Compile Include="BrokerCosts.cs" />
     <Compile Include="Deal.cs" />
     <Compile Include="ExcelClass.cs" />
@@ -82,9 +84,11 @@
     <Compile Include="RABotProgram.cs" />
     <Compile Include="SLSettings.cs" />
     <Compile Include="StringFunctions.cs" />
-    <Compile Include="TableViewer.cs" />
+    <Compile Include="VM_Little_table\TableViewer.cs" />
     <Compile Include="Timers.cs" />
     <Compile Include="TradeInstrument.cs" />
+    <Compile Include="VM_Little_table\ValueToColorConverter.cs" />
+    <Compile Include="VM_Little_table\WrongDirToColorConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

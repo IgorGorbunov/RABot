@@ -15,3 +15,5 @@ D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.exe
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.pdb
 D:\Work\Coding\Github\repos\RABot\bin\Debug\Microsoft.Office.Interop.Excel.dll
 D:\Work\Coding\Github\repos\RABot\bin\Debug\Office.dll
+D:\Work\Coding\Github\repos\RABot\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot_MarkupCompile.lref

@@ -1,9 +1,41 @@
 ﻿<Window x:Class="RABot.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vmLittleTable="clr-namespace:RABot.VM_Little_table"
         Title="MainWindow" Height="527" Width="713" StateChanged="Window_StateChanged_1" Closed="Window_Closed_1">
 
     <Window.Resources>
+        <vmLittleTable:NullValToColorConverter x:Key="NullValToColorConverter" />
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="{Binding OpenValue, Converter={StaticResource NullValToColorConverter}}" />
+        </Style>
+        <vmLittleTable:IdToColorConverter x:Key="IdToColorConverter" />
+        <Style x:Key="IdStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="{Binding OpenValue, Converter={StaticResource IdToColorConverter}}" />
+        </Style>
+        <vmLittleTable:BigStopToColorConverter x:Key="BigStopToColorConverter" />
+        <Style x:Key="StopStyle"  TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource BigStopToColorConverter}">
+                        <Binding Path="OpenValue"/>
+                        <Binding Path="StopValue"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <vmLittleTable:WrongDirToColorConverter x:Key="WrongDirToColorConverter" />
+        <Style x:Key="DirStyle"  TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource WrongDirToColorConverter}">
+                        <Binding Path="IsLong"/>
+                        <Binding Path="OpenValue"/>
+                        <Binding Path="StopValue"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <CollectionViewSource x:Key="ItemCollectionViewSourceLittleTable"  CollectionViewType="ListCollectionView"/>
     </Window.Resources>
 
@@ -51,11 +83,11 @@
                   AutoGenerateColumns="False" Grid.Column="1" Margin="10,10,10,10" Grid.Row="1" CanUserReorderColumns="False" 
                   CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Инструмент" Binding="{Binding Path=Instrument}"/>
-                <DataGridCheckBoxColumn Header="Лонг" Binding="{Binding Path=IsLong}"/>
-                <DataGridTextColumn Header="Цена входа" Binding="{Binding Path=OpenValue}"/>
-                <DataGridTextColumn Header="Переворот" Binding="{Binding Path=StopValue}"/>
-                <DataGridTextColumn Header="Профит" Binding="{Binding Path=Profit}"/>
+                <DataGridTextColumn Header="Инструмент" Binding="{Binding Path=Instrument, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="Лонг" Binding="{Binding Path=IsLong, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CellStyle="{StaticResource DirStyle}"/>
+                <DataGridTextColumn Header="Цена входа" Binding="{Binding Path=OpenValue, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CellStyle="{StaticResource IdStyle}"/>
+                <DataGridTextColumn Header="Переворот" Binding="{Binding Path=StopValue, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CellStyle="{StaticResource StopStyle}"/>
+                <DataGridTextColumn Header="Профит" Binding="{Binding Path=Profit, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </DataGrid.Columns>
         </DataGrid>
 
