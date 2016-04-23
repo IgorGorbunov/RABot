@@ -8,8 +8,7 @@
 
     public bool IsNullValue()
     {
-        double value = OpenValue;
-        if (value <= 0)
+        if (OpenValue <= 0)
         {
             return true;
         }

@@ -24,6 +24,7 @@ namespace RABot
                 RABotProgram.SetTempFolder();
                 Timers.InitTimers(LabelMoexTime, LabelLocalTime);
                 NetClass.StartPing(ImgNetConn, ImgSlConn);
+                SetLastLittleTable();
             }
             catch (Exception)
             {
@@ -35,6 +36,8 @@ namespace RABot
                 
             }
         }
+
+        
 
         private void CleanUp()
         {
@@ -66,6 +69,10 @@ namespace RABot
             _ni.ContextMenu = new ContextMenu(menuItems);
         }
 
+        private void SetLastLittleTable()
+        {
+            DgLittleTable.ItemsSource = RABotProgram.GetLastLittleStops().Value;
+        }
 
         //------------------------------------------------------------------------------------
 

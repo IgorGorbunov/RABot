@@ -507,7 +507,6 @@ public class TradeInstrument
                 Deal romanDeal = null;
                 bool isCurrentDeal = false;
                 bool isFirstDeal = true;
-                double? currentReverse = 0.0;
                 double? stop;
                 double? lastStop = 0;
                 DateTime prevDay = new DateTime(1, 1, 1);

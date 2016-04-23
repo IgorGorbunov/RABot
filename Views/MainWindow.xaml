@@ -85,8 +85,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Инструмент" Binding="{Binding Path=Instrument, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Header="Лонг" Binding="{Binding Path=IsLong, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CellStyle="{StaticResource DirStyle}"/>
-                <DataGridTextColumn Header="Цена входа" Binding="{Binding Path=OpenValue, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CellStyle="{StaticResource IdStyle}"/>
-                <DataGridTextColumn Header="Переворот" Binding="{Binding Path=StopValue, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CellStyle="{StaticResource StopStyle}"/>
+                <DataGridTextColumn Header="Цена входа" Binding="{Binding Path=OpenValue, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" CellStyle="{StaticResource IdStyle}"/>
+                <DataGridTextColumn Header="Переворот" Binding="{Binding Path=StopValue, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" CellStyle="{StaticResource StopStyle}"/>
                 <DataGridTextColumn Header="Профит" Binding="{Binding Path=Profit, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </DataGrid.Columns>
         </DataGrid>

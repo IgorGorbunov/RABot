@@ -17,7 +17,10 @@ public static class RABotProgram
     private const string TempFolderName = "RAbot";
     private const string LittleTableFileName = "littleTable.txt";
 
-    private static Dictionary<DateTime, Dictionary<TradeInstrument.Issuer, double>> _littleStops; 
+    private const double Epsilon = 0.001;
+
+    private static Dictionary<DateTime, Dictionary<TradeInstrument.Issuer, double>> _littleStops;
+    private static Dictionary<DateTime, List<TableViewer>> _littleDeals;
 
     public static void SetTempFolder()
     {
@@ -56,13 +59,21 @@ public static class RABotProgram
 
     public static void SetLittleStops(CollectionViewSource itemCollectionViewSource)
     {
-        _littleStops = new Dictionary<DateTime, Dictionary<TradeInstrument.Issuer, double>>();
         if (Clipboard.ContainsText())
         {
             Dictionary <TradeInstrument.Issuer, double> list = GetInstruments(Clipboard.GetText());
             FillLittleTable(list, itemCollectionViewSource);
             _littleStops.Add(DateTime.Today, list);
         }
+    }
+
+    public static KeyValuePair <DateTime, List<TableViewer>> GetLastLittleStops()
+    {
+        if (_littleDeals == null)
+        {
+            GetLittleStops();
+        }
+        return _littleDeals.Last();
     }
 
     public static void SaveLittleStops()
@@ -73,6 +84,63 @@ public static class RABotProgram
             File.Delete(filePath);
         }
         RecordLittleTable(filePath, DateTime.Today, _littleStops[DateTime.Today]);
+    }
+
+    private static void GetLittleStops()
+    {
+        _littleDeals = new Dictionary<DateTime, List<TableViewer>>();
+        string filePath = Path.Combine(Application.StartupPath, LittleTableFileName);
+        if (File.Exists(filePath))
+        {
+            TableViewer tbV = new TableViewer();
+            List <TableViewer> deals = new List <TableViewer>();
+            DateTime date = DateTime.Today;
+            using (StreamReader streamReader = new StreamReader(filePath, Encoding.UTF8))
+            {
+                while (!streamReader.EndOfStream)
+                {
+                    string line = streamReader.ReadLine();
+                    string[] parametrs = line.Split(';');
+                    if (parametrs.Length > 1)
+                    {
+                        tbV = new TableViewer();
+                        tbV.Instrument = parametrs[0];
+                        int isLong = int.Parse(parametrs[1]);
+                        switch (isLong)
+                        {
+                            case 0:
+                                tbV.IsLong = false;
+                                break;
+                            case 1:
+                                tbV.IsLong = true;
+                                break;
+                        }
+                        tbV.OpenValue = StringFunctions.Parse(parametrs[2]);
+                        tbV.StopValue = StringFunctions.Parse(parametrs[3]);
+                        double profit = StringFunctions.Parse(parametrs[4]);
+                        if (Math.Abs(profit - 0) < Epsilon)
+                        {
+                            tbV.Profit = null;
+                        }
+                        else
+                        {
+                            tbV.Profit = profit;
+                        }
+                        deals.Add(tbV);
+                    }
+                    else
+                    {
+                        if (deals.Count > 0)
+                        {
+                            _littleDeals.Add(date, deals);
+                            deals.Clear();
+                        }
+                        date = StringFunctions.GetDate(line, "dd.MM.yyyy");
+                    }
+                }
+                _littleDeals.Add(date, deals);
+            }
+        }
     }
 
     private static void RecordLittleTable(string filePath, DateTime date, Dictionary <TradeInstrument.Issuer, double> values)
