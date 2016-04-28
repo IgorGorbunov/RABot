@@ -97,7 +97,9 @@ namespace RABot
 
         private void BttnTest_Click(object sender, RoutedEventArgs e)
         {
-
+            QT trader = new QT("127.0.0.1:5001", "quik123", "quik789");
+            trader.LuaConnect();
+            trader.GetSecurity("SBER");
         }
 
         private void BttnAddLittleStops_Click(object sender, RoutedEventArgs e)

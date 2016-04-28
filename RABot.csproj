@@ -41,11 +41,193 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="API">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\API.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.Core">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.Glacier">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\AWSSDK.Glacier.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.S3">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\AWSSDK.S3.dll</HintPath>
+    </Reference>
+    <Reference Include="Blackwood.Framework">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Blackwood.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="CBWMessages">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\CBWMessages.dll</HintPath>
+    </Reference>
+    <Reference Include="ClrPatch">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\ClrPatch.dll</HintPath>
+    </Reference>
+    <Reference Include="CommLib">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\CommLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ddfplus">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\ddfplus.dll</HintPath>
+    </Reference>
+    <Reference Include="Disk.SDK">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Disk.SDK.dll</HintPath>
+    </Reference>
+    <Reference Include="Disk.SDK.Provider">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Disk.SDK.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetDBF">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\DotNetDBF.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Backup">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Backup.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Collections">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Common">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.ComponentModel">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.ComponentModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Configuration">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Data">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Data.Providers">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Data.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Interop">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Localization">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Net">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Reflection">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Reflection.Aspects">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Reflection.Aspects.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Roslyn">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Roslyn.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Security">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Serialization">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Serialization.FieldFactories">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Serialization.FieldFactories.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Transactions">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Transactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.UnitTesting">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.UnitTesting.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Web">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Xaml">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Xaml.Charting">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Ecng.Xaml.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlRenderer">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\HtmlRenderer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlRenderer.WPF">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\HtmlRenderer.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="INIFileParser">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ADLite">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Interop.ADLite.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.CQG">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Interop.CQG.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.P2ClientGateMTA32">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Interop.P2ClientGateMTA32.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.P2ClientGateMTA64">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Interop.P2ClientGateMTA64.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.SmartCOM3_32">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Interop.SmartCOM3_32.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.SmartCOM3_64">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Interop.SmartCOM3_64.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.StClientLib">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Interop.StClientLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.SterlingLib">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Interop.SterlingLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="LmaxClientLibrary">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\LmaxClientLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MaasOne">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\MaasOne.dll</HintPath>
+    </Reference>
+    <Reference Include="MaasOne.Yahoo">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\MaasOne.Yahoo.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Messages">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Messages.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.VisualBasic">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Microsoft.CodeAnalysis.VisualBasic.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>..\..\..\Libs\Excel\VS 2012 - 4.5\Microsoft.Office.Interop.Excel.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Northwoods.GoWPF">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Northwoods.GoWPF.dll</HintPath>
     </Reference>
     <Reference Include="Office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -53,9 +235,150 @@
       <HintPath>..\..\..\Libs\Excel\VS 2012 - 4.5\Office.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ProtoSharp.Core">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\ProtoSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="rapi">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\rapi.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SevenZipSharp">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\SevenZipSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Alerts">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Alerts.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.AlfaDirect">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.AlfaDirect.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Algo">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Algo.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Algo.Expressions">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Algo.Expressions.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Algo.History">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Algo.History.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Algo.Strategies">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Algo.Strategies.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.BarChart">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.BarChart.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.BitStamp">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.BitStamp.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Blackwood">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Blackwood.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Btce">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Btce.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.BusinessEntities">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.BusinessEntities.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Community">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Community.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Configuration">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.CQG">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.CQG.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.ETrade">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.ETrade.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Fix">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Fix.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.InteractiveBrokers">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.InteractiveBrokers.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.IQFeed">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.IQFeed.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.ITCH">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.ITCH.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Licensing">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.LMAX">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.LMAX.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Localization">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Logging">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.MatLab">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.MatLab.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Messages">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Messages.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Micex">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Micex.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Oanda">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Oanda.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.OpenECry">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.OpenECry.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Plaza">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Plaza.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Quik">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Quik.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.QuikLua">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.QuikLua.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Rithmic">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Rithmic.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Rss">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Rss.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.SmartCom">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.SmartCom.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Sterling">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Sterling.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Transaq">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Transaq.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Twime">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Twime.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Xaml">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Xaml.Charting">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Xaml.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Xaml.Diagram">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\StockSharp.Xaml.Diagram.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.FtpClient">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\System.Net.FtpClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,15 +388,31 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Types">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Types.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="xNet">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\xNet.dll</HintPath>
+    </Reference>
+    <Reference Include="zlibnet">
+      <HintPath>packages\StockSharp.4.3.14.1\lib\net45\zlibnet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="QT.cs" />
     <Compile Include="VM_Little_table\BigStopToColorConverter.cs" />
     <Compile Include="VM_Little_table\NullValToColorConverter.cs" />
     <Compile Include="BrokerCosts.cs" />
@@ -120,6 +459,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
