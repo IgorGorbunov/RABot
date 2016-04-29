@@ -50,7 +50,18 @@
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
         <Button x:Name="BttnTest" Content="Button" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnTest_Click"/>
-        <Button x:Name="BttnAddLittleStops" Grid.Row="1" Content="Добавить &quot;малую&quot; табличку" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnAddLittleStops_Click"/>
+        <Grid Grid.Row="1"  Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="BttnAddLittleStops" Grid.Column="1" Content="Добавить &quot;малую&quot; табличку" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnAddLittleStops_Click"/>
+            <Button x:Name="BttnSaveCurrentLittleTable" Grid.Column="1" Grid.Row="1" Content="Сохранить &quot;малую&quot; табличку" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnSaveCurrentLittleTable_Click"/>
+        </Grid>
         <Grid Grid.Column="2"  Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="35"/>

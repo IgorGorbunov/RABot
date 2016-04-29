@@ -128,6 +128,11 @@ namespace RABot
             }
         }
 
+        private void BttnSaveCurrentLittleTable_Click(object sender, RoutedEventArgs e)
+        {
+            RABotProgram.AppendLittleTable(DateTime.Today, _currentLittleTable);
+        }
+
 
     }
 }

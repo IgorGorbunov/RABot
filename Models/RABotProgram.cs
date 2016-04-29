@@ -17,7 +17,9 @@ public static class RABotProgram
     public static string TempFolder;
 
     private const string TempFolderName = "RAbot";
+    private const string MiscFolderName = "_misc";
     private const string LittleTableFileName = "littleTable.txt";
+    private const string LittleCopyTableFileName = "littleTableCopy.txt";
 
     private const double Epsilon = 0.001;
 
@@ -110,7 +112,54 @@ public static class RABotProgram
         }
     }
 
+    public static void AppendLittleTable(DateTime dateTime, ObservableCollection <TableViewer> table)
+    {
+        List <TableViewer> littleTable = _littleDeals[dateTime.Date];
+        {
+            for (int i = 0; i < littleTable.Count; i++)
+            {
+                littleTable[i].Instrument = table[i].Instrument;
+                littleTable[i].IsLong = table[i].IsLong;
+                littleTable[i].OpenValue = table[i].OpenValue;
+                littleTable[i].StopValue = table[i].StopValue;
+                littleTable[i].Profit = table[i].Profit;
+            }
+        }
+        string newFilePath = Path.Combine
+                (Application.StartupPath, MiscFolderName, LittleCopyTableFileName);
+        using (StreamWriter sw = new StreamWriter(newFilePath, false, Encoding.UTF8))
+        {
+            foreach (KeyValuePair<DateTime, List<TableViewer>> dayLittleTable in _littleDeals)
+            {
+                sw.WriteLine(dayLittleTable.Key.ToShortDateString());
+                foreach (TableViewer dealParams in dayLittleTable.Value)
+                {
+                    sw.Write(TradeInstrument.GetIssuerName(dealParams.Instrument));
+                    sw.Write(';');
+                    if (dealParams.IsLong)
+                        sw.Write(1);
+                    else
+                        sw.Write(0);
+                    sw.Write(';');
+                    sw.Write(dealParams.OpenValue);
+                    sw.Write(';');
+                    sw.Write(dealParams.StopValue);
+                    sw.Write(';');
+                    sw.WriteLine(dealParams.Profit);
+                }
+                sw.Flush();
+            }
+            sw.Close();
+        }
+        string oldFilePath = Path.Combine
+                (Application.StartupPath, MiscFolderName, LittleTableFileName);
+        if (File.Exists(oldFilePath))
+        {
+            File.Delete(oldFilePath);
+        }
+        File.Move(newFilePath, oldFilePath);
 
+    }
 
 
 
