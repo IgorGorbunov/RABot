@@ -10,9 +10,9 @@ namespace RABot.VM_Little_table
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             // Все проверки для краткости выкинул
-            return (double)value <= 0 ?
+            return (decimal)value <= 0 ?
                 new SolidColorBrush(Colors.Yellow)
-                : new SolidColorBrush(Colors.White);
+                : new SolidColorBrush(Colors.LightGray);
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

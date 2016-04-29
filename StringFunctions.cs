@@ -92,9 +92,14 @@ public static class StringFunctions
         return null;
     }
 
-    public static double Parse(string s)
+    public static double ParseDouble(string s)
     {
         return double.Parse(s.Replace(",", "."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+    }
+
+    public static decimal ParseDecimal(string s)
+    {
+        return decimal.Parse(s.Replace(",", "."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
     }
 
     private static string GetClearDefinedStringChar(char c)

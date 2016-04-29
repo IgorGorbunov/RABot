@@ -14,7 +14,7 @@
             <Setter Property="Background" Value="{Binding OpenValue, Converter={StaticResource IdToColorConverter}}" />
         </Style>
         <vmLittleTable:BigStopToColorConverter x:Key="BigStopToColorConverter" />
-        <Style x:Key="StopStyle"  TargetType="{x:Type DataGridCell}">
+        <Style x:Key="StopStyle" TargetType="{x:Type DataGridCell}">
             <Setter Property="Background">
                 <Setter.Value>
                     <MultiBinding Converter="{StaticResource BigStopToColorConverter}">

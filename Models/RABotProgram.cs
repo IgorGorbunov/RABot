@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -86,13 +88,28 @@ public static class RABotProgram
         RecordLittleTable(filePath, DateTime.Today, _littleStops[DateTime.Today]);
     }
 
-    public static void SetOpenValuesLittleTable()
+    public static void SetOpenValuesLittleTable(ref ObservableCollection <TableViewer> table)
     {
         using (QT qt = new QT())
         {
             qt.LuaConnect();
+
+            foreach (TableViewer tableViewer in table)
+            {
+                qt.RegisterSecurity(TradeInstrument.GetIssuerCode(tableViewer.Instrument));
+            }
+            for (int i = 0; i < table.Count; i++)
+            {
+                decimal? openValue = qt.GetSecOpenVal
+                        (TradeInstrument.GetIssuerCode(table[i].Instrument));
+                if (openValue.HasValue)
+                {
+                    table[i].OpenValue = openValue.Value;
+                }
+            }
         }
     }
+
 
 
 
@@ -116,7 +133,7 @@ public static class RABotProgram
                     if (parametrs.Length > 1)
                     {
                         tbV = new TableViewer();
-                        tbV.Instrument = parametrs[0];
+                        tbV.Instrument = TradeInstrument.GetIssuer2Name(parametrs[0]);
                         int isLong = int.Parse(parametrs[1]);
                         switch (isLong)
                         {
@@ -127,9 +144,9 @@ public static class RABotProgram
                                 tbV.IsLong = true;
                                 break;
                         }
-                        tbV.OpenValue = StringFunctions.Parse(parametrs[2]);
-                        tbV.StopValue = StringFunctions.Parse(parametrs[3]);
-                        double profit = StringFunctions.Parse(parametrs[4]);
+                        tbV.OpenValue = StringFunctions.ParseDecimal(parametrs[2]);
+                        tbV.StopValue = StringFunctions.ParseDecimal(parametrs[3]);
+                        double profit = StringFunctions.ParseDouble(parametrs[4]);
                         if (Math.Abs(profit - 0) < Epsilon)
                         {
                             tbV.Profit = null;
@@ -163,7 +180,7 @@ public static class RABotProgram
             foreach (KeyValuePair <TradeInstrument.Issuer, double> issuer in values)
             {
                 string line = string.Format
-                        ("{0};{1};{2};{3};{4}", issuer.Key, 0, 0.0, issuer.Value, 0);
+                        ("{0};{1};{2};{3};{4}", TradeInstrument.GetIssuerName(issuer.Key), 0, 0.0, issuer.Value, 0);
                 streamWriter.WriteLine(line);
             }
             streamWriter.Close();
@@ -176,10 +193,10 @@ public static class RABotProgram
         foreach (KeyValuePair<TradeInstrument.Issuer, double> dealProps in instrumentList)
         {
             TableViewer dealParams = new TableViewer();
-            dealParams.Instrument = TradeInstrument.GetIssuerName(dealProps.Key);
+            dealParams.Instrument = dealProps.Key;
             dealParams.IsLong = false;
-            dealParams.OpenValue = 0.0;
-            dealParams.StopValue = dealProps.Value;
+            dealParams.OpenValue = 0.0m;
+            dealParams.StopValue = (decimal)dealProps.Value;
             dealParams.Profit = null;
             deals.Add(dealParams);
         }
@@ -207,8 +224,8 @@ public static class RABotProgram
                     continue;
                 }
                 string[] issuerAndStop = lineWoCommas.Split(' ');
-                TradeInstrument.Issuer issuer = TradeInstrument.GetIssuer(issuerAndStop[0], isFutures);
-                dictionary.Add(issuer, StringFunctions.Parse(issuerAndStop[1]));
+                TradeInstrument.Issuer issuer = TradeInstrument.GetIssuerRa(issuerAndStop[0], isFutures);
+                dictionary.Add(issuer, StringFunctions.ParseDouble(issuerAndStop[1]));
             }
             
         }

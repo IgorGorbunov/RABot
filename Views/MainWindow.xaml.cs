@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Forms;
+using Forms = System.Windows.Forms;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 using MenuItem = System.Windows.Forms.MenuItem;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -14,7 +15,8 @@ namespace RABot
     /// </summary>
     public partial class MainWindow
     {
-        private NotifyIcon _ni;
+        private Forms.NotifyIcon _ni;
+        private ObservableCollection <TableViewer> _currentLittleTable; 
 
         public MainWindow()
         {
@@ -49,7 +51,7 @@ namespace RABot
 
         private void SetIcon()
         {
-            _ni = new NotifyIcon
+            _ni = new Forms.NotifyIcon
             {
                 Icon = Properties.Resources.chart,
                 Visible = true
@@ -72,7 +74,9 @@ namespace RABot
 
         private void SetLastLittleTable()
         {
-            DgLittleTable.ItemsSource = RABotProgram.GetLastLittleStops().Value;
+            _currentLittleTable = new ObservableCollection <TableViewer>
+                    (RABotProgram.GetLastLittleStops().Value);
+            DgLittleTable.ItemsSource = _currentLittleTable;
         }
 
         //------------------------------------------------------------------------------------
@@ -98,12 +102,7 @@ namespace RABot
 
         private void BttnTest_Click(object sender, RoutedEventArgs e)
         {
-            using (QT trader = new QT("127.0.0.1:5001", "quikBot", "quik_RomaN"))
-            {
-                trader.LuaConnect();
-                trader.RegisterSecurity("SBER");
-                MessageBox.Show(trader.GetSecOpenVal("SBER").ToString());
-            }
+            RABotProgram.SetOpenValuesLittleTable(ref _currentLittleTable);
         }
 
         private void BttnAddLittleStops_Click(object sender, RoutedEventArgs e)

@@ -29,8 +29,8 @@ public class QT : IDisposable
 
     private bool _isConnected;
     private bool _findSecurity;
-    private IEnumerable<Security> _securities;
-    private readonly List<Security> _findedSecurities = new List <Security>(); 
+    private List<Security> _findedSecurities;
+    private List<Security> _localSecurities = new List <Security>(); 
 
     public QT() : this("127.0.0.1:5001", "quikBot", "quik_RomaN")
     {
@@ -162,11 +162,11 @@ public class QT : IDisposable
         {
             Thread.Sleep(100);
         }
-        foreach (Security findSecurity in _securities)
+        foreach (Security findSecurity in _findedSecurities)
         {
             if (findSecurity.Class == "TQBR" && findSecurity.Code == code)
             {
-                _findedSecurities.Add(findSecurity);
+                _localSecurities.Add(findSecurity);
                 return findSecurity;
             }
         }
@@ -176,20 +176,32 @@ public class QT : IDisposable
     public decimal? GetSecOpenVal(string code)
     {
         Security security = RegisterSecurity(code);
-        decimal? value = security.OpenPrice;
-        while (value == null)
+        if (security != null)
         {
-            Thread.Sleep(100);
-            value = security.OpenPrice;
+            decimal? value = security.OpenPrice;
+            while (value == null)
+            {
+                Thread.Sleep(100);
+                value = security.OpenPrice;
+            }
+            Trader.UnRegisterSecurity(security);
+            //Trader.UnRegisterTrades(security);
+            return value;
         }
-        Trader.UnRegisterSecurity(security);
-        //Trader.UnRegisterTrades(security);
-        return value;
+        return null;
     }
 
     public Security RegisterSecurity(string code)
     {
+        if (string.IsNullOrEmpty(code))
+        {
+            return null;
+        }
         Security security = GetSecurity(code);
+        if (security == null)
+        {
+            return security;
+        }
         if (!Trader.RegisteredSecurities.Contains(security))
         {
             Trader.RegisterSecurity(security);
@@ -200,7 +212,7 @@ public class QT : IDisposable
 
     private Security GetLocalSaveSecurity(string code)
     {
-        foreach (Security findedSecurity in _findedSecurities)
+        foreach (Security findedSecurity in _localSecurities)
         {
             if (findedSecurity.Code == code)
             {
@@ -218,29 +230,15 @@ public class QT : IDisposable
         {
             return;
         }
+        if (securities.Count() > 8000)
+        {
+            _localSecurities = new List<Security>(securities);
+        }
         if (_findSecurity)
         {
-            _securities = securities;
+            _findedSecurities = new List <Security>(securities);
         }
         _findSecurity = false;
-        //if (securities.Count() > 1)
-        //{
-        //    System.Windows.Forms.MessageBox.Show("Lookup " + securities.Count().ToString());
-        //    foreach (Security security in securities)
-        //    {
-        //        string line = "";
-        //        line += security.Board + Environment.NewLine;
-        //        line += security.Class + Environment.NewLine;
-        //        line += security.Code + Environment.NewLine;
-        //        line += security.Currency + Environment.NewLine;
-        //        line += security.Id + Environment.NewLine;
-        //        line += security.Name + Environment.NewLine;
-        //        line += security.State + Environment.NewLine;
-        //        line += security.Type + Environment.NewLine;
-        //        line += security.OpenPrice + Environment.NewLine;
-        //        System.Windows.Forms.MessageBox.Show(line);
-        //    }
-        //}
     }
 
     
@@ -280,7 +278,7 @@ public class QT : IDisposable
         }
 
         // Free any unmanaged objects here.
-        _findedSecurities.Clear();
+        _localSecurities.Clear();
         Trader.Disconnect();
         Trader.Dispose();
         _disposed = true;

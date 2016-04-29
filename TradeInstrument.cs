@@ -144,6 +144,10 @@ public class TradeInstrument
     {
         switch (issuer)
         {
+            case Issuer.EURUSD:
+                return "";
+            case Issuer.Eon:
+                return "EONR";
             case Issuer.Fsk:
                 return "FEES";
             case Issuer.Gazprom:
@@ -152,6 +156,12 @@ public class TradeInstrument
                 return "GMKN";
             case Issuer.Lukoil:
                 return "LKOH";
+            case Issuer.Mvideo:
+                return "MVID";
+            case Issuer.Mmk:
+                return "MAGN";
+            case Issuer.Moex:
+                return "MOEX";
             case Issuer.Mts:
                 return "MTSS";
             case Issuer.Rosneft:
@@ -168,8 +178,30 @@ public class TradeInstrument
                 return "SNGS";
             case Issuer.SurgutNfgAp:
                 return "SNGSP";
+            case Issuer.Uralkaliy:
+                return "URKA";
             case Issuer.Vtb:
                 return "VTBR";
+            case Issuer.FWTI:
+                return "";
+            case Issuer.FUSDRUR:
+                return "";
+            case Issuer.FGold:
+                return "";
+            case Issuer.FEU:
+                return "";
+            case Issuer.FGazprom:
+                return "";
+            case Issuer.FGmkNorNikel:
+                return "";
+            case Issuer.FSberbankAo:
+                return "";
+            case Issuer.FSberbankAp:
+                return "";
+            case Issuer.FVtb:
+                return "";
+            case Issuer.FMagnit:
+                return "";
         }
         return null;
     }
@@ -225,9 +257,9 @@ public class TradeInstrument
             case Issuer.FUSDRUR:
                 return "ФUSDRUR";
             case Issuer.FGold:
-                return "ФGD";
+                return "ФGold";
             case Issuer.FEU:
-                return "ФEU";
+                return "ФEuro";
             case Issuer.FGazprom:
                 return "ФГазпром";
             case Issuer.FGmkNorNikel:
@@ -288,7 +320,7 @@ public class TradeInstrument
     /// <param name="issureName">Название эмитента</param>
     /// <param name="isFutures">Да, если это фьючерс</param>
     /// <returns></returns>
-    public static Issuer GetIssuer(string issureName, bool isFutures)
+    public static Issuer GetIssuerRa(string issureName, bool isFutures)
     {
         if (isFutures)
         {
@@ -330,11 +362,76 @@ public class TradeInstrument
                 return Issuer.Mmk;
             case "EURUSD":
                 return Issuer.EURUSD;
+            case "ФWTI":
+                return Issuer.FWTI;
+            case "ФUSDRUR":
+                return Issuer.FUSDRUR;
+            case "ФGD":
+                return Issuer.FGold;
+            case "ФEU":
+                return Issuer.FEU;
+            case "ФГазпром":
+                return Issuer.FGazprom;
+            case "ФГмкНорНикель":
+                return Issuer.FGmkNorNikel;
+            case "ФСбербанк ао":
+                return Issuer.FSberbankAo;
+            case "ФСбербанк ап":
+                return Issuer.FSberbankAp;
+            case "ФВТБ":
+                return Issuer.FVtb;
+            case "ФМагнит":
+                return Issuer.FMagnit;
         }
         
         return Issuer.None;
     }
-    
+    /// <summary>
+    /// Метод возвращает эмитент по его названию
+    /// </summary>
+    /// <param name="issureName">Название эмитента</param>
+    /// <returns></returns>
+    public static Issuer GetIssuer2Name(string issureName)
+    {
+        switch (issureName)
+        {
+            case "Уралкалий":
+                return Issuer.Uralkaliy;
+            case "Мосбиржа":
+                return Issuer.Moex;
+            case "М.Видео":
+                return Issuer.Mvideo;
+            case "Э.ОН":
+                return Issuer.Eon;
+            case "ММК":
+                return Issuer.Mmk;
+            case "EURUSD":
+                return Issuer.EURUSD;
+            case "ФWTI":
+                return Issuer.FWTI;
+            case "ФUSDRUR":
+                return Issuer.FUSDRUR;
+            case "ФGold":
+                return Issuer.FGold;
+            case "ФEuro":
+                return Issuer.FEU;
+            case "ФГазпром":
+                return Issuer.FGazprom;
+            case "ФГмкНорНикель":
+                return Issuer.FGmkNorNikel;
+            case "ФСбербанк ао":
+                return Issuer.FSberbankAo;
+            case "ФСбербанк ап":
+                return Issuer.FSberbankAp;
+            case "ФВТБ":
+                return Issuer.FVtb;
+            case "ФМагнит":
+                return Issuer.FMagnit;
+        }
+
+        return Issuer.None;
+    }
+
     /// <summary>
     /// Код эмитента
     /// </summary>

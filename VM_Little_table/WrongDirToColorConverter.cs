@@ -12,15 +12,15 @@ namespace RABot.VM_Little_table
         {
             if (values[1] == DependencyProperty.UnsetValue)
             {
-                return new SolidColorBrush(Colors.White);
+                return new SolidColorBrush(Colors.LightGray);
             }
-            double openValue = (double)values[1];
+            decimal openValue = (decimal)values[1];
             if (openValue <= 0)
             {
                 return new SolidColorBrush(Colors.Yellow);
             }
             bool isLong = (bool) values[0];
-            double stopValue = (double)values[2];
+            decimal stopValue = (decimal)values[2];
             if (isLong)
             {
                 if (stopValue > openValue)
@@ -29,14 +29,14 @@ namespace RABot.VM_Little_table
                 }
                 else
                 {
-                    return new SolidColorBrush(Colors.White);
+                    return new SolidColorBrush(Colors.LightGray);
                 }
             }
             else
             {
                 if (stopValue > openValue)
                 {
-                    return new SolidColorBrush(Colors.White);
+                    return new SolidColorBrush(Colors.LightGray);
                     
                 }
                 else
