@@ -86,6 +86,18 @@ public static class RABotProgram
         RecordLittleTable(filePath, DateTime.Today, _littleStops[DateTime.Today]);
     }
 
+    public static void SetOpenValuesLittleTable()
+    {
+        using (QT qt = new QT())
+        {
+            qt.LuaConnect();
+        }
+    }
+
+
+
+
+
     private static void GetLittleStops()
     {
         _littleDeals = new Dictionary<DateTime, List<TableViewer>>();

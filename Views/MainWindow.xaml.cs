@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Forms;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 using MenuItem = System.Windows.Forms.MenuItem;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace RABot
 {
@@ -97,9 +98,12 @@ namespace RABot
 
         private void BttnTest_Click(object sender, RoutedEventArgs e)
         {
-            QT trader = new QT("127.0.0.1:5001", "quik123", "quik789");
-            trader.LuaConnect();
-            trader.GetSecurity("SBER");
+            using (QT trader = new QT("127.0.0.1:5001", "quikBot", "quik_RomaN"))
+            {
+                trader.LuaConnect();
+                trader.RegisterSecurity("SBER");
+                MessageBox.Show(trader.GetSecOpenVal("SBER").ToString());
+            }
         }
 
         private void BttnAddLittleStops_Click(object sender, RoutedEventArgs e)

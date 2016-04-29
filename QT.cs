@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Security;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Ecng.Common;
@@ -13,7 +15,7 @@ using StockSharp.Logging;
 using StockSharp.Quik;
 
 
-public class QT
+public class QT : IDisposable
 {
     public QuikTrader Trader;
 
@@ -27,8 +29,13 @@ public class QT
 
     private bool _isConnected;
     private bool _findSecurity;
-    private Security _findedSecurity;
-    private IEnumerable<Security> _securities; 
+    private IEnumerable<Security> _securities;
+    private readonly List<Security> _findedSecurities = new List <Security>(); 
+
+    public QT() : this("127.0.0.1:5001", "quikBot", "quik_RomaN")
+    {
+        
+    }
 
     public QT(string fixServerAddress, string luaLogin, string luaPassword)
     {
@@ -125,7 +132,7 @@ public class QT
 
 			Trader.Connect();
 			_isConnected = true;
-			System.Windows.Forms.MessageBox.Show(Trader.ConnectionState.ToString());
+            Debug.WriteLine(Trader.ConnectionState.ToString());
 		}
 		else
 		{
@@ -140,29 +147,74 @@ public class QT
         Trader.LookupSecurities(security);
     }
 
-    public void GetSecurity(string code)
+    public Security GetSecurity(string code)
     {
-        Security security = new Security();
+        Security security = GetLocalSaveSecurity(code);
+        if (security != null)
+        {
+            return security;
+        }
+        security = new Security();
         security.Code = code;
         _findSecurity = true;
         Trader.LookupSecurities(security);
         while (_findSecurity)
         {
-
+            Thread.Sleep(100);
         }
         foreach (Security findSecurity in _securities)
         {
             if (findSecurity.Class == "TQBR" && findSecurity.Code == code)
             {
-                System.Windows.Forms.MessageBox.Show(findSecurity.Code);
+                _findedSecurities.Add(findSecurity);
+                return findSecurity;
             }
         }
-        
+        return null;
+    }
+
+    public decimal? GetSecOpenVal(string code)
+    {
+        Security security = RegisterSecurity(code);
+        decimal? value = security.OpenPrice;
+        while (value == null)
+        {
+            Thread.Sleep(100);
+            value = security.OpenPrice;
+        }
+        Trader.UnRegisterSecurity(security);
+        //Trader.UnRegisterTrades(security);
+        return value;
+    }
+
+    public Security RegisterSecurity(string code)
+    {
+        Security security = GetSecurity(code);
+        if (!Trader.RegisteredSecurities.Contains(security))
+        {
+            Trader.RegisterSecurity(security);
+            //Trader.RegisterTrades(security);
+        }
+        return security;
+    }
+
+    private Security GetLocalSaveSecurity(string code)
+    {
+        foreach (Security findedSecurity in _findedSecurities)
+        {
+            if (findedSecurity.Code == code)
+            {
+                return findedSecurity;
+            }
+        }
+        return null;
     }
 
     private void TraderOnLookupSecuritiesResult(IEnumerable <Security> securities)
     {
-        if (securities.Count() <= 1 || securities.Count() > 2000)
+        //System.Windows.Forms.MessageBox.Show(securities.Count().ToString());
+        if (securities.Count() < 1 )
+            //|| securities.Count() > 2000)
         {
             return;
         }
@@ -200,4 +252,39 @@ public class QT
             System.Windows.Forms.MessageBox.Show("New " + securities.Count().ToString());
         }
     }
+
+    #region Implementation of IDisposable
+
+    bool _disposed;
+
+    /// <summary>
+    /// Выполняет определяемые приложением задачи, связанные с высвобождением или сбросом неуправляемых ресурсов.
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    // Protected implementation of Dispose pattern.
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed)
+            return;
+
+        if (disposing)
+        {
+            //handle.Dispose();
+            // Free any other managed objects here.
+            //
+        }
+
+        // Free any unmanaged objects here.
+        _findedSecurities.Clear();
+        Trader.Disconnect();
+        Trader.Dispose();
+        _disposed = true;
+    }
+
+    #endregion
 }
