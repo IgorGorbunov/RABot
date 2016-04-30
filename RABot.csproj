@@ -474,13 +474,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Resources\chart.ico" />
+    <Resource Include="Resources\chart.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\busy.png" />
+    <Resource Include="Resources\busy.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\notBusy.png" />
+    <Resource Include="Resources\notBusy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

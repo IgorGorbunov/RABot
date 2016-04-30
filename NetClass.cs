@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using RABot.Models;
 
 public static class NetClass
 {
@@ -165,14 +166,14 @@ public static class NetClass
             using (Bitmap bit = RABot.Properties.Resources.notBusy)
             {
                 //метод просто выгружает указанную картинку в папку temp и возвращает полный путь к ней
-                imgPath = RABotProgram.UnloadImage(bit, "notBusy");
+                imgPath = RaBotProgram.UnloadImage(bit, "notBusy");
             }
         }
         else
         {
             using (Bitmap bit = RABot.Properties.Resources.busy)
             {
-                imgPath = RABotProgram.UnloadImage(bit, "busy");
+                imgPath = RaBotProgram.UnloadImage(bit, "busy");
             }
         }
 

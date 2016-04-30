@@ -1,69 +1,83 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-
-public class TableViewer : INotifyPropertyChanged
+namespace RABot.VM_Little_table
 {
-    public TradeInstrument.Issuer Instrument { get; set; }
-    public bool IsLong
+    public class TableViewer : INotifyPropertyChanged
     {
-        get { return _isLong; }
-        set
+        public TradeInstrument.Issuer Instrument
         {
-            if (_isLong != value)
+            get;
+            set;
+        }
+
+        public bool IsLong
+        {
+            get { return _isLong; }
+            set
             {
-                _isLong = value;
-                OnPropertyChanged("IsLong");
+                if (_isLong != value)
+                {
+                    _isLong = value;
+                    OnPropertyChanged("IsLong");
+                }
             }
         }
-    }
-    public decimal OpenValue
-    {
-        get { return _openValue; }
-        set
+
+        public decimal OpenValue
         {
-            if (_openValue != value)
+            get { return _openValue; }
+            set
             {
-                _openValue = value;
-                OnPropertyChanged("OpenValue");
+                if (_openValue != value)
+                {
+                    _openValue = value;
+                    OnPropertyChanged("OpenValue");
+                }
             }
         }
-    }
-    public decimal StopValue
-    {
-        get { return _stopValue; }
-        set
+
+        public decimal StopValue
         {
-            if (_stopValue != value)
+            get { return _stopValue; }
+            set
             {
-                _stopValue = value;
-                OnPropertyChanged("StopValue");
+                if (_stopValue != value)
+                {
+                    _stopValue = value;
+                    OnPropertyChanged("StopValue");
+                }
             }
         }
-    }
-    public double? Profit { get; set; }
 
-    private bool _isLong;
-    private decimal _openValue;
-    private decimal _stopValue;
-
-    public bool IsNullValue()
-    {
-        if (OpenValue <= 0)
+        public double? Profit
         {
-            return true;
+            get;
+            set;
         }
-        return false;
-    }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+        private bool _isLong;
+        private decimal _openValue;
+        private decimal _stopValue;
 
-    //[NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChangedEventHandler handler = PropertyChanged;
-        if (handler != null)
-            handler(this, new PropertyChangedEventArgs(propertyName));
+        public bool IsNullValue()
+        {
+            if (OpenValue <= 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        //[NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
 

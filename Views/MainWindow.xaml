@@ -3,7 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vmLittleTable="clr-namespace:RABot.VM_Little_table"
         Title="MainWindow" Height="527" Width="713" StateChanged="Window_StateChanged_1" Closed="Window_Closed_1">
-
+    
+    <Window.DataContext>
+        <vmLittleTable:TableViewer/>
+    </Window.DataContext>
     <Window.Resources>
         <vmLittleTable:NullValToColorConverter x:Key="NullValToColorConverter" />
         <Style TargetType="{x:Type DataGridRow}">
