@@ -40,7 +40,7 @@ public class Quote
     public int Lot
     {
         get;
-        private set;
+        set;
     }
     public int Row
     {

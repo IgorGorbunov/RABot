@@ -138,39 +138,21 @@ public class QT : IDisposable
 		{
 			Trader.Disconnect();
 			_isConnected = false;
+            Debug.WriteLine(Trader.ConnectionState.ToString());
 		}
+    }
+
+    public void LuaDisconnect()
+    {
+        Trader.Disconnect();
+        _isConnected = false;
+        Debug.WriteLine(Trader.ConnectionState.ToString());
     }
 
     public void GetAllSecurities()
     {
         Security security = new Security();
         Trader.LookupSecurities(security);
-    }
-
-    public Security GetSecurity(string code)
-    {
-        Security security = GetLocalSaveSecurity(code);
-        if (security != null)
-        {
-            return security;
-        }
-        security = new Security();
-        security.Code = code;
-        _findSecurity = true;
-        Trader.LookupSecurities(security);
-        while (_findSecurity)
-        {
-            Thread.Sleep(100);
-        }
-        foreach (Security findSecurity in _findedSecurities)
-        {
-            if (findSecurity.Class == "TQBR" && findSecurity.Code == code)
-            {
-                _localSecurities.Add(findSecurity);
-                return findSecurity;
-            }
-        }
-        return null;
     }
 
     public decimal? GetSecOpenVal(string code)
@@ -208,6 +190,56 @@ public class QT : IDisposable
             //Trader.RegisterTrades(security);
         }
         return security;
+    }
+
+    public Quote GetQuote(string code)
+    {
+        Security security = GetSecurity(code);
+        decimal? value = security.OpenPrice;
+        if (value == null)
+        {
+            if (!Trader.RegisteredSecurities.Contains(security))
+            {
+                Trader.RegisterSecurity(security);
+            }
+            while (value == null)
+            {
+                Thread.Sleep(100);
+                value = security.OpenPrice;
+            }
+        }
+        Trader.UnRegisterSecurity(security);
+        Quote quote = new Quote
+                (DateTime.Today, security.OpenPrice.Value, security.ClosePrice.Value,
+                 security.HighPrice.Value, security.LowPrice.Value, (ulong)security.Volume.Value, 0);
+        quote.Lot = (int) security.Multiplier;
+        return quote;
+    }
+
+    private Security GetSecurity(string code)
+    {
+        Security security = GetLocalSaveSecurity(code);
+        if (security != null)
+        {
+            return security;
+        }
+        security = new Security();
+        security.Code = code;
+        _findSecurity = true;
+        Trader.LookupSecurities(security);
+        while (_findSecurity)
+        {
+            Thread.Sleep(100);
+        }
+        foreach (Security findSecurity in _findedSecurities)
+        {
+            if (findSecurity.Class == "TQBR" && findSecurity.Code == code)
+            {
+                _localSecurities.Add(findSecurity);
+                return findSecurity;
+            }
+        }
+        return null;
     }
 
     private Security GetLocalSaveSecurity(string code)
@@ -279,7 +311,7 @@ public class QT : IDisposable
 
         // Free any unmanaged objects here.
         _localSecurities.Clear();
-        Trader.Disconnect();
+        LuaDisconnect();
         Trader.Dispose();
         _disposed = true;
     }

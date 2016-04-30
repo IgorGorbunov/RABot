@@ -15,6 +15,38 @@ namespace RABot.Models
         private const string LittleTemplateFileName = "littleTemplate.xls";
         private const string FolderName = "xls";
 
+        public static void SaveRomanIssuers(ObservableCollection <TableViewer> list)
+        {
+            foreach (TableViewer tableViewer in list)
+            {
+                if (tableViewer.OpenValue > 0)
+                {
+                    SetRomanIssuer(tableViewer);
+                }
+            }
+        }
+
+        public static void SaveQuotes(ObservableCollection<TableViewer> list)
+        {
+            RaBotProgram.qt.LuaConnect();
+            try
+            {
+                foreach (TableViewer tableViewer in list)
+                {
+                    if (tableViewer.OpenValue > 0)
+                    {
+                        string code = TradeInstrument.GetIssuerCode(tableViewer.Instrument);
+                        Quote quote = RaBotProgram.qt.GetQuote(code);
+                        SetQuote(quote, code);
+                    }
+                }
+            }
+            finally
+            {
+                RaBotProgram.qt.LuaDisconnect();
+            }
+        }
+
         private static void SetRomanIssuer(TableViewer props)
         {
             string shortFileName = TradeInstrument.GetIssuerCode(props.Instrument);
@@ -29,11 +61,12 @@ namespace RABot.Models
                 xls.SetCellValue(10, firstFreeRow, props.OpenValue.ToString());
                 xls.SetCellValue(11, firstFreeRow, props.StopValue.ToString());
                 xls.SetCellValue(12, firstFreeRow, props.Profit.ToString());
+                xls.CloseDocumentSave();
             }
 
         }
 
-        private static void SetRomanIssuer(Quote quote, string code)
+        private static void SetQuote(Quote quote, string code)
         {
             string fullPath = SetFile(code);
 
@@ -50,6 +83,7 @@ namespace RABot.Models
                 xls.SetCellValue(7, firstFreeRow, quote.Lot.ToString());
                 
                 xls.SetCellValue(1, 1, (++firstFreeRow).ToString());
+                xls.CloseDocumentSave();
             }
 
         }

@@ -13,6 +13,8 @@ namespace RABot.Models
 {
     public static class RaBotProgram
     {
+        public static QT qt;
+
         public static string TempFolder;
         public const string MiscFolderName = "_misc";
 
@@ -81,10 +83,10 @@ namespace RABot.Models
 
         public static void SetOpenValuesLittleTable(ref ObservableCollection <TableViewer> table)
         {
-            using (QT qt = new QT())
+            qt = new QT();
+            qt.LuaConnect();
+            try
             {
-                qt.LuaConnect();
-
                 foreach (TableViewer tableViewer in table)
                 {
                     qt.RegisterSecurity(TradeInstrument.GetIssuerCode(tableViewer.Instrument));
@@ -98,6 +100,10 @@ namespace RABot.Models
                         table[i].OpenValue = openValue.Value;
                     }
                 }
+            }
+            finally
+            {
+                qt.LuaDisconnect();
             }
         }
 

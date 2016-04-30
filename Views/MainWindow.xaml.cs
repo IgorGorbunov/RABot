@@ -43,6 +43,7 @@ namespace RABot
 
         private void CleanUp()
         {
+            RaBotProgram.qt.Dispose();
             NetClass.DisposeAsync();
             RaBotProgram.DeleteTempFolder();
             _ni.Dispose();
@@ -101,7 +102,7 @@ namespace RABot
 
         private void BttnTest_Click(object sender, RoutedEventArgs e)
         {
-            RaBotProgram.SetOpenValuesLittleTable(ref _currentLittleTable);
+            
         }
 
         private void BttnAddLittleStops_Click(object sender, RoutedEventArgs e)
@@ -115,6 +116,21 @@ namespace RABot
         private void BttnSaveCurrentLittleTable_Click(object sender, RoutedEventArgs e)
         {
             RaBotProgram.AppendLittleTable(DateTime.Today, _currentLittleTable);
+        }
+
+        private void BttnAddOpenToLittle_Click(object sender, RoutedEventArgs e)
+        {
+            RaBotProgram.SetOpenValuesLittleTable(ref _currentLittleTable);
+        }
+
+        private void BttnSaveXls_Click(object sender, RoutedEventArgs e)
+        {
+            XlsDocs.SaveRomanIssuers(_currentLittleTable);
+        }
+
+        private void BttnSaveXlsQuote_Click(object sender, RoutedEventArgs e)
+        {
+            XlsDocs.SaveQuotes(_currentLittleTable);
         }
 
 
