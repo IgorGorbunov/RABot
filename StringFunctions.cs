@@ -81,10 +81,21 @@ public static class StringFunctions
         return result;
     }
 
-    public static double? TryParse(string s)
+    public static double? TryParseDouble(string s)
     {
         double d;
         bool tryParse = double.TryParse(s.Replace(",", "."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out d);
+        if (tryParse)
+        {
+            return d;
+        }
+        return null;
+    }
+
+    public static decimal? TryParseDecimal(string s)
+    {
+        decimal d;
+        bool tryParse = decimal.TryParse(s.Replace(",", "."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out d);
         if (tryParse)
         {
             return d;

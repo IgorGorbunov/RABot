@@ -12,27 +12,32 @@ public class Quote
         get;
         private set;
     }
-    public double Open
+    public decimal Open
     {
         get;
         private set;
     }
-    public double Close
+    public decimal Close
     {
         get;
         private set;
     }
-    public double High
+    public decimal High
     {
         get;
         private set;
     }
-    public double Low
+    public decimal Low
     {
         get;
         private set;
     }
     public ulong Volume
+    {
+        get;
+        private set;
+    }
+    public int Lot
     {
         get;
         private set;
@@ -43,7 +48,7 @@ public class Quote
         private set;
     }
 
-    public Quote(DateTime dt, double open, double close, double high, double low, ulong volume, int iRow)
+    public Quote(DateTime dt, decimal open, decimal close, decimal high, decimal low, ulong volume, int iRow)
     {
         Date = dt;
         Open = open;

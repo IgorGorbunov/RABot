@@ -513,10 +513,10 @@ public class TradeInstrument
                     DateTime date = StringFunctions.GetDate(sDate, DateFormat);
                     if (date > fromDate && date < toDate)
                     {
-                        double open = double.Parse(xls.GetCellStringValue(OpenCol, i));
-                        double close = double.Parse(xls.GetCellStringValue(CloseCol, i));
-                        double high = double.Parse(xls.GetCellStringValue(HighCol, i));
-                        double low = double.Parse(xls.GetCellStringValue(LowCol, i));
+                        decimal open = StringFunctions.ParseDecimal(xls.GetCellStringValue(OpenCol, i));
+                        decimal close = StringFunctions.ParseDecimal(xls.GetCellStringValue(CloseCol, i));
+                        decimal high = StringFunctions.ParseDecimal(xls.GetCellStringValue(HighCol, i));
+                        decimal low = StringFunctions.ParseDecimal(xls.GetCellStringValue(LowCol, i));
                         ulong volume = ulong.Parse(xls.GetCellStringValue(VolumeCol, i));
                         Quote quote = new Quote(date, open, close, high, low, volume, i);
                         _quotes.Add(date, quote);
@@ -604,8 +604,8 @@ public class TradeInstrument
                 Deal romanDeal = null;
                 bool isCurrentDeal = false;
                 bool isFirstDeal = true;
-                double? stop;
-                double? lastStop = 0;
+                decimal? stop;
+                decimal? lastStop = 0;
                 DateTime prevDay = new DateTime(1, 1, 1);
 
                 foreach (KeyValuePair<DateTime, Quote> quote in _quotes)
@@ -706,10 +706,10 @@ public class TradeInstrument
                             !string.IsNullOrEmpty(sOpen) &&
                             !string.IsNullOrEmpty(sReverse))
                         {
-                            double? reverse = StringFunctions.TryParse(sReverse);
+                            decimal? reverse = StringFunctions.TryParseDecimal(sReverse);
                             if (isFirstDeal)
                             {
-                                double? open = StringFunctions.TryParse(sOpen);
+                                decimal? open = StringFunctions.TryParseDecimal(sOpen);
                                 deal = new Deal(sDir, date.AddDays(-1), open);
                                 deal.SetStopReverse(date, reverse);
                                 isFirstDeal = false;
@@ -722,7 +722,7 @@ public class TradeInstrument
                                 }
                                 else
                                 {
-                                    double? open = StringFunctions.TryParse(sOpen);
+                                    decimal? open = StringFunctions.TryParseDecimal(sOpen);
                                     someDeals.Add(deal.OpenDate, deal);
                                     deal = deal.Reverse(date.AddDays(-1), open);
                                     deal.SetStopReverse(date, reverse);
@@ -743,7 +743,7 @@ public class TradeInstrument
 
     private void SetDealStops(ExcelClass xls, ref int iRow, Deal deal, string directionCol, string openCol, string reverseCol, string profitLossCol)
     {
-        foreach (KeyValuePair<DateTime, double?> stop in deal.Stops)
+        foreach (KeyValuePair<DateTime, decimal?> stop in deal.Stops)
         {
             string sDate = xls.GetCellStringValue(DateCol, iRow);
             DateTime date = StringFunctions.GetDate(sDate, DateFormat);

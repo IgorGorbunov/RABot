@@ -14,9 +14,10 @@ namespace RABot.Models
     public static class RaBotProgram
     {
         public static string TempFolder;
+        public const string MiscFolderName = "_misc";
 
         private const string TempFolderName = "RAbot";
-        private const string MiscFolderName = "_misc";
+        
         private const string LittleTableFileName = "littleTable.txt";
         private const string LittleCopyTableFileName = "littleTableCopy.txt";
 

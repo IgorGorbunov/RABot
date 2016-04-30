@@ -6,6 +6,18 @@ using System.Collections.Generic;
 /// </summary>
 public class Deal
 {
+    public static string GetDirection(bool isLong)
+    {
+        if (isLong)
+        {
+            return Long;
+        }
+        return Short;
+    }
+
+    private const string Long = "ЛОНГ";
+    private const string Short = "шорт";
+
     /// <summary>
     /// Перечисление направления сделки
     /// </summary>
@@ -41,9 +53,9 @@ public class Deal
             switch (DirectionEnum)
             {
                 case Direction.Long:
-                    return "ЛОНГ";
+                    return Long;
                 case Direction.Short:
-                    return "шорт";
+                    return Short;
             }
             return "";
         }
@@ -67,7 +79,7 @@ public class Deal
     /// <summary>
     /// Цена входа
     /// </summary>
-    public double? OpenValue
+    public decimal? OpenValue
     {
         get;
         private set;
@@ -75,7 +87,7 @@ public class Deal
     /// <summary>
     /// Цена выхода
     /// </summary>
-    public double? CloseValue
+    public decimal? CloseValue
     {
         get;
         private set;
@@ -92,7 +104,7 @@ public class Deal
             {
                 directCoef = 1;
             }
-            double? profitProcentNul = (CloseValue - OpenValue) * directCoef * 100 / OpenValue;
+            double? profitProcentNul = (double) ((CloseValue - OpenValue) * directCoef * 100 / OpenValue);
             return Math.Round((double)profitProcentNul, 2);
         }
     }
@@ -108,7 +120,7 @@ public class Deal
             {
                 directCoef = 1;
             }
-            double profitProcentNul = ((((double)CloseValue - (double)OpenValue) * directCoef) - Costs) * 100 / (double)OpenValue;
+            double profitProcentNul = (double) ((((CloseValue - OpenValue) * directCoef) - Costs) * 100 / OpenValue);
             return Math.Round(profitProcentNul, 2);
         }
     }
@@ -132,28 +144,28 @@ public class Deal
     /// <summary>
     /// Перевороты, которые ставились во время жизни сделки
     /// </summary>
-    public Dictionary <DateTime, double?> Stops
+    public Dictionary <DateTime, decimal?> Stops
     {
         get { return _stops; }
     }
     /// <summary>
     /// Брокерская комиссия (за сделку + комиссия за шорт)
     /// </summary>
-    public double Costs
+    public decimal Costs
     {
         get
         {
-            double openCost = Math.Round((double) OpenValue * BrokerCosts.DealProcentCost / 100, 2);
+            decimal openCost = Math.Round((OpenValue * (decimal)BrokerCosts.DealProcentCost / 100).Value, 2);
             //if (openCost < BrokerCosts.MinDealCost)
             //{
             //    openCost = BrokerCosts.MinDealCost;
             //}
-            double closeCost = Math.Round((double) CloseValue * BrokerCosts.DealProcentCost / 100, 2);
+            decimal closeCost = Math.Round((CloseValue * (decimal)BrokerCosts.DealProcentCost / 100).Value, 2);
             //if (closeCost < BrokerCosts.MinDealCost)
             //{
             //    closeCost = BrokerCosts.MinDealCost;
             //}
-            double shortCost = 0;
+            decimal shortCost = 0;
             if (!IsLong)
             {
                 int nDays = 365;
@@ -162,14 +174,14 @@ public class Deal
                     nDays = 366;
                 }
                 double procentCostInDay = BrokerCosts.ShortYearProcentCost/nDays;
-                double costInDay = Math.Round((double) OpenValue * procentCostInDay / 100, 2);
+                decimal costInDay = Math.Round((OpenValue * (decimal)procentCostInDay / 100).Value, 2);
                 shortCost = costInDay * (_stops.Count - 1);
             }
             return openCost + closeCost + shortCost;
         }
     }
 
-    private readonly Dictionary <DateTime, double?> _stops;
+    private readonly Dictionary <DateTime, decimal?> _stops;
 
     private const string LongTitle = "ЛOHГ";
     private const string ShortTitle = "ШOPT";
@@ -180,7 +192,7 @@ public class Deal
     /// <param name="isLong">TRUE, если сделка ЛОНГ</param>
     /// <param name="openDate">Дата открытия сделки</param>
     /// <param name="openValue">Цена открытия</param>
-    public Deal(bool isLong, DateTime openDate, double? openValue) 
+    public Deal(bool isLong, DateTime openDate, decimal? openValue) 
         : this (openDate, openValue)
     {
         IsLong = isLong;
@@ -199,24 +211,24 @@ public class Deal
     /// <param name="direction">Направление сделки</param>
     /// <param name="openDate">Дата открытия сделки</param>
     /// <param name="openValue">Цена открытия</param>
-    public Deal(string direction, DateTime openDate, double? openValue)
+    public Deal(string direction, DateTime openDate, decimal? openValue)
         : this(openDate, openValue)
     {
         SetDirection(direction);
     }
 
-    private Deal(DateTime openDate, double? openValue)
+    private Deal(DateTime openDate, decimal? openValue)
     {
         OpenDate = openDate;
         OpenValue = openValue;
-        _stops = new Dictionary<DateTime, double?>();
+        _stops = new Dictionary<DateTime, decimal?>();
     }
     /// <summary>
     /// Метод устанавливает новый стоп (переворот)
     /// </summary>
     /// <param name="date"></param>
     /// <param name="stopValue"></param>
-    public void SetStopReverse(DateTime date, double? stopValue)
+    public void SetStopReverse(DateTime date, decimal? stopValue)
     {
         if (!_stops.ContainsKey(date))
         {
@@ -246,7 +258,7 @@ public class Deal
     /// </summary>
     /// <param name="closeDate">Дата закрытия</param>
     /// <param name="closeValue">Цена закрытия</param>
-    public void Close(DateTime closeDate, double? closeValue)
+    public void Close(DateTime closeDate, decimal? closeValue)
     {
         CloseDate = closeDate;
         CloseValue = closeValue;
@@ -257,7 +269,7 @@ public class Deal
     /// <param name="closeDate">Дата закрытия</param>
     /// <param name="closeValue">Цена закрытия</param>
     /// <returns></returns>
-    public Deal Reverse(DateTime closeDate, double? closeValue)
+    public Deal Reverse(DateTime closeDate, decimal? closeValue)
     {
         Close(closeDate, closeValue);
         return new Deal(!IsLong, closeDate, closeValue);
@@ -267,7 +279,7 @@ public class Deal
     /// </summary>
     /// <param name="date"></param>
     /// <returns></returns>
-    public double? GetStop(DateTime date)
+    public decimal? GetStop(DateTime date)
     {
         if (_stops.ContainsKey(date))
         {
