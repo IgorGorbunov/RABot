@@ -110,6 +110,18 @@
                 <DataGridTextColumn Header="Профит" Binding="{Binding Path=Profit, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </DataGrid.Columns>
         </DataGrid>
-
+        <Grid Grid.Row="1" Grid.Column="2" Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="BttnTryToCreateDeals" Grid.Column="1" Content="Сделать сделки" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnTryToCreateDeals_Click"/>
+        </Grid>
     </Grid>
 </Window>

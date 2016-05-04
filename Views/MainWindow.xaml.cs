@@ -102,7 +102,16 @@ namespace RABot
 
         private void BttnTest_Click(object sender, RoutedEventArgs e)
         {
-            
+            QT qt = new QT();
+            qt.LuaConnect();
+            try
+            {
+
+            }
+            finally
+            {
+                qt.LuaDisconnect();
+            }
         }
 
         private void BttnAddLittleStops_Click(object sender, RoutedEventArgs e)
@@ -131,6 +140,20 @@ namespace RABot
         private void BttnSaveXlsQuote_Click(object sender, RoutedEventArgs e)
         {
             XlsDocs.SaveQuotes(_currentLittleTable);
+        }
+
+        private void BttnTryToCreateDeals_Click(object sender, RoutedEventArgs e)
+        {
+            QT qt = new QT();
+            qt.LuaConnect();
+            try
+            {
+                decimal? longPrice = qt.GetCurrentPrice("FEES");
+            }
+            finally
+            {
+                qt.LuaDisconnect();
+            }
         }
 
 

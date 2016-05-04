@@ -9,9 +9,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Ecng.Common;
+using StockSharp.Algo;
 using StockSharp.BusinessEntities;
 using StockSharp.Localization;
 using StockSharp.Logging;
+using StockSharp.Messages;
 using StockSharp.Quik;
 
 
@@ -171,6 +173,29 @@ public class QT : IDisposable
             return value;
         }
         return null;
+    }
+
+    public decimal? GetCurrentPrice(string code)
+    {
+        if (string.IsNullOrEmpty(code))
+        {
+            return null;
+        }
+        Security security = GetSecurity(code);
+        if (!Trader.RegisteredSecurities.Contains(security))
+        {
+            Trader.RegisterSecurity(security);
+        }
+        decimal? val = security.OpenPrice;
+        while (val == null)
+        {
+            Thread.Sleep(100);
+            val = security.OpenPrice;
+        }
+        Trade last = security.LastTrade;
+        decimal price = last.Price;
+        Trader.UnRegisterSecurity(security);
+        return price;
     }
 
     public Security RegisterSecurity(string code)
