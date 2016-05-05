@@ -32,7 +32,9 @@ public class QT : IDisposable
     private bool _isConnected;
     private bool _findSecurity;
     private List<Security> _findedSecurities;
-    private List<Security> _localSecurities = new List <Security>(); 
+    private List<Security> _localSecurities = new List <Security>();
+
+    private static volatile Portfolio _portfolio1;
 
     public QT() : this("127.0.0.1:5001", "quikBot", "quik_RomaN")
     {
@@ -48,6 +50,7 @@ public class QT : IDisposable
 
     public void LuaConnect()
     {
+        ManualResetEvent portfoliosWait = null;
         if (!_isConnected)
 		{
 			if (_fixServerAddress.IsEmpty())
@@ -130,10 +133,48 @@ public class QT : IDisposable
                 //ShowSecurities.IsEnabled = ShowTrades.IsEnabled =
                 //    ShowMyTrades.IsEnabled = ShowOrders.IsEnabled =
                 //        ShowPortfolios.IsEnabled = ShowStopOrders.IsEnabled = true;
+
+
+                portfoliosWait = new ManualResetEvent(false);
+
+                Action<IEnumerable<Portfolio>> newPortfolios = portfolios =>
+                {
+                    if (_portfolio1 == null)
+                    {
+                        Portfolio first = null;
+                        foreach (Portfolio p in portfolios)
+                        {
+                            if (p.Name == "60087")
+                            {
+                                first = p;
+                                break;
+                            }
+                        }
+                        _portfolio1 = first;
+                    }
+
+                    // если оба инструмента появились
+                    if (_portfolio1 != null)
+                        portfoliosWait.Set();
+                };
+
+                Trader.NewPortfolios += newPortfolios;
+
+                decimal sum;
+                sum = 0.0m;
+                foreach (var portfolio in Trader.Portfolios)
+                    sum += portfolio.GetFreeMoney(false);
+
+                Debug.WriteLine(sum.ToString());
+
 			}
 
 			Trader.Connect();
 			_isConnected = true;
+            Debug.WriteLine(Trader.ConnectionState.ToString());
+            portfoliosWait.WaitOne();
+		    decimal freeMoney = _portfolio1.GetFreeMoney();
+
             Debug.WriteLine(Trader.ConnectionState.ToString());
 		}
 		else

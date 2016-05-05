@@ -51,6 +51,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="9*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Button x:Name="BttnTest" Content="Button" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnTest_Click"/>
         <Grid Grid.Row="1"  Margin="0">
@@ -122,6 +123,22 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Button x:Name="BttnTryToCreateDeals" Grid.Column="1" Content="Сделать сделки" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnTryToCreateDeals_Click"/>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1" Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Свободные средства" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <Label Content="из Quik`а" Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <Label Content="локально" Grid.Row="2" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <Label x:Name="lblFreeMoneyQuik" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <Label x:Name="lblFreeMoneyLocal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>
