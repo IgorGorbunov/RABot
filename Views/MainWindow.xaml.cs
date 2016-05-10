@@ -27,6 +27,7 @@ namespace RABot
                 Timers.InitTimers(LabelMoexTime, LabelLocalTime);
                 NetClass.StartPing(ImgNetConn, ImgSlConn);
                 RaBotProgram.GetLittleStops();
+                RaBotProgram.SetFreeMoney();
             }
             catch (Exception)
             {
@@ -144,16 +145,7 @@ namespace RABot
 
         private void BttnTryToCreateDeals_Click(object sender, RoutedEventArgs e)
         {
-            QT qt = new QT();
-            qt.LuaConnect();
-            try
-            {
-                decimal? longPrice = qt.GetCurrentPrice("FEES");
-            }
-            finally
-            {
-                qt.LuaDisconnect();
-            }
+            
         }
 
 

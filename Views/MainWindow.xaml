@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vmLittleTab="clr-namespace:RABot.VM_Little_table"
         Title="MainWindow" Height="527" Width="713" StateChanged="Window_StateChanged_1" Closed="Window_Closed_1">
-    
+
     <Window.DataContext>
         <vmLittleTab:TableViewer/>
     </Window.DataContext>
@@ -40,6 +40,7 @@
             </Setter>
         </Style>
         <CollectionViewSource x:Key="ItemCollectionViewSourceLittleTable"  CollectionViewType="ListCollectionView"/>
+        
     </Window.Resources>
 
     <Grid>
@@ -137,8 +138,8 @@
             <Label Content="Свободные средства" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
             <Label Content="из Quik`а" Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
             <Label Content="локально" Grid.Row="2" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <Label x:Name="lblFreeMoneyQuik" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <Label x:Name="lblFreeMoneyLocal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <Label x:Name="lblFreeMoneyQuik" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" />
+            <Label x:Name="lblFreeMoneyLocal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Content="{Binding FreeMoney,Source={StaticResource MoneyPurse}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Grid>
 </Window>

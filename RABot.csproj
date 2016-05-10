@@ -412,7 +412,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Config.cs" />
     <Compile Include="Models\XlsDocs.cs" />
+    <Compile Include="ViewModels\MoneyPurse.cs" />
     <Compile Include="QT.cs" />
     <Compile Include="VM_Little_table\BigStopToColorConverter.cs" />
     <Compile Include="VM_Little_table\NullValToColorConverter.cs" />

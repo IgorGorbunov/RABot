@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using RABot.VM_Little_table;
 
@@ -28,7 +23,7 @@ namespace RABot.Models
 
         public static void SaveQuotes(ObservableCollection<TableViewer> list)
         {
-            RaBotProgram.qt.LuaConnect();
+            RaBotProgram.Qt.LuaConnect();
             try
             {
                 foreach (TableViewer tableViewer in list)
@@ -36,14 +31,14 @@ namespace RABot.Models
                     if (tableViewer.OpenValue > 0)
                     {
                         string code = TradeInstrument.GetIssuerCode(tableViewer.Instrument);
-                        Quote quote = RaBotProgram.qt.GetQuote(code);
+                        Quote quote = RaBotProgram.Qt.GetQuote(code);
                         SetQuote(quote, code);
                     }
                 }
             }
             finally
             {
-                RaBotProgram.qt.LuaDisconnect();
+                RaBotProgram.Qt.LuaDisconnect();
             }
         }
 
@@ -90,7 +85,7 @@ namespace RABot.Models
 
         private static string SetFile(string shortFileName)
         {
-            string miscFolder = Path.Combine(Application.StartupPath, RaBotProgram.MiscFolderName);
+            string miscFolder = Path.Combine(Application.StartupPath, Config.MiscFolderName);
             if (!Directory.Exists(miscFolder))
             {
                 Directory.CreateDirectory(miscFolder);

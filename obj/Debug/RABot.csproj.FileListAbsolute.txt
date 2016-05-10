@@ -177,10 +177,11 @@ D:\Work\Coding\Github\repos\RABot\obj\Debug\Views\MainWindow.g.cs
 D:\Work\Coding\Github\repos\RABot\obj\Debug\App.g.cs
 D:\Work\Coding\Github\repos\RABot\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot_MarkupCompile.cache
+D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot_MarkupCompile.lref
 D:\Work\Coding\Github\repos\RABot\obj\Debug\Views\MainWindow.baml
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.g.resources
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.Properties.Resources.resources
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.csproj.GenerateResource.Cache
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.exe
 D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot.pdb
-D:\Work\Coding\Github\repos\RABot\obj\Debug\RABot_MarkupCompile.lref
+D:\Work\Coding\Github\repos\RABot\obj\Debug\App.baml

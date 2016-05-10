@@ -13,12 +13,10 @@ namespace RABot.Models
 {
     public static class RaBotProgram
     {
-        public static QT qt;
+        public static QT Qt;
 
         public static string TempFolder;
-        public const string MiscFolderName = "_misc";
-
-        private const string TempFolderName = "RAbot";
+        
         
         private const string LittleTableFileName = "littleTable.txt";
         private const string LittleCopyTableFileName = "littleTableCopy.txt";
@@ -28,7 +26,7 @@ namespace RABot.Models
         public static void SetTempFolder()
         {
             string temp = Path.GetTempPath();
-            TempFolder = Path.Combine(temp, TempFolderName);
+            TempFolder = Path.Combine(temp, Config.TempFolderName);
             DeleteTempFolder();
             Directory.CreateDirectory(TempFolder);
         }
@@ -83,17 +81,17 @@ namespace RABot.Models
 
         public static void SetOpenValuesLittleTable(ref ObservableCollection <TableViewer> table)
         {
-            qt = new QT();
-            qt.LuaConnect();
+            Qt = new QT();
+            Qt.LuaConnect();
             try
             {
                 foreach (TableViewer tableViewer in table)
                 {
-                    qt.RegisterSecurity(TradeInstrument.GetIssuerCode(tableViewer.Instrument));
+                    Qt.RegisterSecurity(TradeInstrument.GetIssuerCode(tableViewer.Instrument));
                 }
                 for (int i = 0; i < table.Count; i++)
                 {
-                    decimal? openValue = qt.GetSecOpenVal
+                    decimal? openValue = Qt.GetSecOpenVal
                             (TradeInstrument.GetIssuerCode(table[i].Instrument));
                     if (openValue.HasValue)
                     {
@@ -103,7 +101,7 @@ namespace RABot.Models
             }
             finally
             {
-                qt.LuaDisconnect();
+                Qt.LuaDisconnect();
             }
         }
 
@@ -121,7 +119,7 @@ namespace RABot.Models
                 }
             }
             string newFilePath = Path.Combine
-                    (Application.StartupPath, MiscFolderName, LittleCopyTableFileName);
+                    (Application.StartupPath, Config.MiscFolderName, LittleCopyTableFileName);
             using (StreamWriter sw = new StreamWriter(newFilePath, false, Encoding.UTF8))
             {
                 foreach (KeyValuePair<DateTime, List<TableViewer>> dayLittleTable in _littleDeals)
@@ -147,7 +145,7 @@ namespace RABot.Models
                 sw.Close();
             }
             string oldFilePath = Path.Combine
-                    (Application.StartupPath, MiscFolderName, LittleTableFileName);
+                    (Application.StartupPath, Config.MiscFolderName, LittleTableFileName);
             if (File.Exists(oldFilePath))
             {
                 File.Delete(oldFilePath);
@@ -159,7 +157,7 @@ namespace RABot.Models
         public static void GetLittleStops()
         {
             _littleDeals = new Dictionary<DateTime, List<TableViewer>>();
-            string filePath = Path.Combine(Application.StartupPath, MiscFolderName, LittleTableFileName);
+            string filePath = Path.Combine(Application.StartupPath, Config.MiscFolderName, LittleTableFileName);
             if (File.Exists(filePath))
             {
                 List <TableViewer> deals = new List <TableViewer>();
@@ -209,6 +207,11 @@ namespace RABot.Models
                     _littleDeals.Add(date, deals);
                 }
             }
+        }
+
+        public static void SetFreeMoney()
+        {
+            ViewModels.MoneyPurse.SetLocalFreeMoney();
         }
 
 
