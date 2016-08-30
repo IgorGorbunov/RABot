@@ -143,9 +143,14 @@ namespace RABot
             XlsDocs.SaveQuotes(_currentLittleTable);
         }
 
+        private void Label_MouseDoubleClick_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://smart-lab.ru/friends/IndiaGlem/");
+        }
+
         private void BttnTryToCreateDeals_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
 

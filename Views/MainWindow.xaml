@@ -85,7 +85,7 @@
             <Image x:Name="ImgNetConn" Margin="0,0,0,0" Stretch="None"/>
             <Image x:Name="ImgSlConn" Grid.Row="1" Margin="0,0,0,0" Stretch="None"/>
             <Label Content="Network" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <Label Content="sMart-lab.ru" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <Label Content="sMart-lab.ru" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" MouseDoubleClick="Label_MouseDoubleClick_1"/>
         </Grid>
         <Grid Grid.Column="1" Margin="10,10,10,10" Grid.Row="0" >
             <Grid.ColumnDefinitions>
