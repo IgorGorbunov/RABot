@@ -27,6 +27,7 @@ namespace RABot
                 Timers.InitTimers(LabelMoexTime, LabelLocalTime);
                 NetClass.StartPing(ImgNetConn, ImgSlConn);
                 LittleTable.GetLittleStops();
+                LittleTable.GetCurrentDeals();
                 RaBotProgram.SetFreeMoney();
             }
             catch (Exception)
@@ -150,7 +151,8 @@ namespace RABot
 
         private void BttnTryToCreateDeals_Click(object sender, RoutedEventArgs e)
         {
-
+            Deal testDeal = new Deal(TradeInstrument.Issuer.Moex, "ЛОНГ", DateTime.Today, 130.7m, 10);
+            LittleTable.SetNewDeal(testDeal);
         }
 
 

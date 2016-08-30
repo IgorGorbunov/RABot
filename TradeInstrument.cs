@@ -293,6 +293,8 @@ public class TradeInstrument
                 return Issuer.GmkNorNikel;
             case "LKOH":
                 return Issuer.Lukoil;
+            case "MOEX":
+                return Issuer.Moex;
             case "MTSS":
                 return Issuer.Mts;
             case "ROSN":

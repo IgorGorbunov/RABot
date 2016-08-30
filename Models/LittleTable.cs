@@ -150,6 +150,37 @@ namespace RABot.Models
             }
         }
 
+        public static void GetCurrentDeals()
+        {
+            _currentDeals = new List <Deal>();
+            StreamReader streamReader = new StreamReader
+                    (Path.Combine(Application.StartupPath, Config.MiscFolderName, Folder, CurrentDeals),
+                     Encoding.UTF8);
+            try
+            {
+                while (!streamReader.EndOfStream)
+                {
+                    string line = streamReader.ReadLine();
+                    if (string.IsNullOrEmpty(line))
+                        break;
+                    string[] split = line.Split(';');
+                    DateTime date = StringFunctions.GetDate(split[0], "dd.MM.yyyy");
+                    TradeInstrument.Issuer issuer = TradeInstrument.GetIssuer(split[1]);
+                    decimal openVal = StringFunctions.ParseDecimal(split[2]);
+                    string dir = split[3];
+                    int vol = int.Parse(split[4]);
+
+                    Deal deal = new Deal(issuer, dir, date, openVal, vol);
+                    _currentDeals.Add(deal);
+                }
+
+            }
+            finally
+            {
+                streamReader.Close();
+            }
+        }
+
         public static KeyValuePair <DateTime, List <TableViewer>> GetLastLittleStops()
         {
             if (_littleDeals == null)
@@ -169,6 +200,27 @@ namespace RABot.Models
                 return littleTable;
             }
             return null;
+        }
+
+        public static void SetNewDeal(Deal newDeal)
+        {
+            int iDel = 0;
+            bool found = false;
+            for (int i = 0; i < _currentDeals.Count; i++)
+            {
+                if (_currentDeals[i].Issuer == newDeal.Issuer)
+                {
+                    iDel = i;
+                    found = true;
+                    break;
+                }
+            }
+            if (found)
+            {
+                _currentDeals.RemoveAt(iDel);
+            }
+            _currentDeals.Add(newDeal);
+            SaveCurrentDeals();
         }
 
         private static ObservableCollection <TableViewer> FillLittleTable(Dictionary <TradeInstrument.Issuer, double> instrumentList)
@@ -226,8 +278,8 @@ namespace RABot.Models
                 foreach (Deal deal in _currentDeals)
                 {
                     streamWriter.WriteLine
-                            ("{0};{1};{2};{3};{4}", deal.OpenDate.ToShortDateString(), deal.Issuer,
-                             deal.OpenValue, deal.IsLong, deal.Volume);
+                            ("{0};{1};{2};{3};{4}", deal.OpenDate.ToShortDateString(), TradeInstrument.GetIssuerCode(deal.Issuer),
+                             deal.OpenValue, deal.DirectionStr, deal.Volume);
                 }
                 streamWriter.Flush();
             }

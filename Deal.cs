@@ -231,6 +231,19 @@ public class Deal
     {
         SetDirection(direction);
     }
+    /// <summary>
+    /// Конструктор для создания сделки
+    /// </summary>
+    /// <param name="direction">Направление сделки</param>
+    /// <param name="openDate">Дата открытия сделки</param>
+    /// <param name="openValue">Цена открытия</param>
+    public Deal(TradeInstrument.Issuer issure, string direction, DateTime openDate, decimal? openValue, int volume)
+        : this(openDate, openValue)
+    {
+        SetDirection(direction);
+        Issuer = issure;
+        Volume = volume;
+    }
 
     private Deal(DateTime openDate, decimal? openValue)
     {
