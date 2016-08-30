@@ -413,6 +413,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config.cs" />
+    <Compile Include="Models\LittleTable.cs" />
     <Compile Include="Models\XlsDocs.cs" />
     <Compile Include="ViewModels\MoneyPurse.cs" />
     <Compile Include="QT.cs" />

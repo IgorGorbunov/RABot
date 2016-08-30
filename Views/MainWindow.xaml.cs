@@ -26,7 +26,7 @@ namespace RABot
                 RaBotProgram.SetTempFolder();
                 Timers.InitTimers(LabelMoexTime, LabelLocalTime);
                 NetClass.StartPing(ImgNetConn, ImgSlConn);
-                RaBotProgram.GetLittleStops();
+                LittleTable.GetLittleStops();
                 RaBotProgram.SetFreeMoney();
             }
             catch (Exception)
@@ -44,7 +44,7 @@ namespace RABot
 
         private void CleanUp()
         {
-            RaBotProgram.qt.Dispose();
+            RaBotProgram.Qt.Dispose();
             NetClass.DisposeAsync();
             RaBotProgram.DeleteTempFolder();
             _ni.Dispose();
@@ -76,7 +76,7 @@ namespace RABot
         private void SetLastLittleTable()
         {
             _currentLittleTable = new ObservableCollection <TableViewer>
-                    (RaBotProgram.GetLastLittleStops().Value);
+                    (LittleTable.GetLastLittleStops().Value);
             DgLittleTable.ItemsSource = _currentLittleTable;
         }
 
@@ -118,14 +118,14 @@ namespace RABot
         private void BttnAddLittleStops_Click(object sender, RoutedEventArgs e)
         {
             _currentLittleTable = new ObservableCollection<TableViewer>
-                    (RaBotProgram.SetLittleStops());
+                    (LittleTable.SetLittleStops());
             DgLittleTable.ItemsSource = _currentLittleTable;
-            RaBotProgram.AppendLittleTable(DateTime.Today, _currentLittleTable);
+            LittleTable.AppendLittleTable(DateTime.Today, _currentLittleTable);
         }
 
         private void BttnSaveCurrentLittleTable_Click(object sender, RoutedEventArgs e)
         {
-            RaBotProgram.AppendLittleTable(DateTime.Today, _currentLittleTable);
+            LittleTable.AppendLittleTable(DateTime.Today, _currentLittleTable);
         }
 
         private void BttnAddOpenToLittle_Click(object sender, RoutedEventArgs e)
