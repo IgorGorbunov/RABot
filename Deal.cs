@@ -19,6 +19,14 @@ public class Deal
     private const string Short = "шорт";
 
     /// <summary>
+    /// Эмитент
+    /// </summary>
+    public TradeInstrument.Issuer Issuer
+    {
+        get;
+        private set;
+    }
+    /// <summary>
     /// Перечисление направления сделки
     /// </summary>
     public enum Direction
@@ -26,7 +34,6 @@ public class Deal
         Short = 0,
         Long = 1
     }
-
     /// <summary>
     /// Возвращает TRUE, если сделка в LONG
     /// </summary>
@@ -88,6 +95,14 @@ public class Deal
     /// Цена выхода
     /// </summary>
     public decimal? CloseValue
+    {
+        get;
+        private set;
+    }
+    /// <summary>
+    /// Объём
+    /// </summary>
+    public int Volume
     {
         get;
         private set;

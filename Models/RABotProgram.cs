@@ -17,10 +17,6 @@ namespace RABot.Models
 
         public static string TempFolder;
         
-        
-        
-
-        
 
         public static void SetTempFolder()
         {
@@ -58,44 +54,13 @@ namespace RABot.Models
         }
 
 
-
         
 
-        public static void SetOpenValuesLittleTable(ref ObservableCollection <TableViewer> table)
-        {
-            Qt = new QT();
-            Qt.LuaConnect();
-            try
-            {
-                foreach (TableViewer tableViewer in table)
-                {
-                    Qt.RegisterSecurity(TradeInstrument.GetIssuerCode(tableViewer.Instrument));
-                }
-                for (int i = 0; i < table.Count; i++)
-                {
-                    decimal? openValue = Qt.GetSecOpenVal
-                            (TradeInstrument.GetIssuerCode(table[i].Instrument));
-                    if (openValue.HasValue)
-                    {
-                        table[i].OpenValue = openValue.Value;
-                    }
-                }
-            }
-            finally
-            {
-                Qt.LuaDisconnect();
-            }
-        }
-
-        
 
         public static void SetFreeMoney()
         {
             ViewModels.MoneyPurse.SetLocalFreeMoney();
         }
-
-
-        
     }
 }
 

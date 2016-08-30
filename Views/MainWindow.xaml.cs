@@ -130,7 +130,7 @@ namespace RABot
 
         private void BttnAddOpenToLittle_Click(object sender, RoutedEventArgs e)
         {
-            RaBotProgram.SetOpenValuesLittleTable(ref _currentLittleTable);
+            LittleTable.SetOpenValuesLittleTable(ref _currentLittleTable);
         }
 
         private void BttnSaveXls_Click(object sender, RoutedEventArgs e)
