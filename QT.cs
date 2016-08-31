@@ -173,7 +173,7 @@ public class QT : IDisposable
 			_isConnected = true;
             Debug.WriteLine(Trader.ConnectionState.ToString());
             portfoliosWait.WaitOne();
-		    decimal freeMoney = _portfolio1.GetFreeMoney();
+		    GetAllSecurities();
 
             Debug.WriteLine(Trader.ConnectionState.ToString());
 		}
@@ -195,7 +195,9 @@ public class QT : IDisposable
     public void GetAllSecurities()
     {
         Security security = new Security();
+        security.Class = "TQBR";
         Trader.LookupSecurities(security);
+        Thread.Sleep(3000);
     }
 
     public decimal? GetSecOpenVal(string code)
@@ -322,13 +324,11 @@ public class QT : IDisposable
 
     private void TraderOnLookupSecuritiesResult(IEnumerable <Security> securities)
     {
-        //System.Windows.Forms.MessageBox.Show(securities.Count().ToString());
-        if (securities.Count() < 1 )
-            //|| securities.Count() > 2000)
+        if (securities.Count() < 1)
         {
             return;
         }
-        if (securities.Count() > 8000)
+        if (_localSecurities.Count() < 2 && securities.Count() > 8000)
         {
             _localSecurities = new List<Security>(securities);
         }

@@ -22,10 +22,6 @@ public class TradeInstrument
         /// </summary>
         None,
         /// <summary>
-        /// Эон
-        /// </summary>
-        Eon,
-        /// <summary>
         /// ФСК
         /// </summary>
         Fsk,
@@ -85,6 +81,10 @@ public class TradeInstrument
         /// СургутНефетГаз ап
         /// </summary>
         SurgutNfgAp,
+        /// <summary>
+        /// Юнипро
+        /// </summary>
+        Unipro,
         /// <summary>
         /// Уралкалий
         /// </summary>
@@ -146,8 +146,6 @@ public class TradeInstrument
         {
             case Issuer.EURUSD:
                 return "";
-            case Issuer.Eon:
-                return "EONR";
             case Issuer.Fsk:
                 return "FEES";
             case Issuer.Gazprom:
@@ -178,6 +176,8 @@ public class TradeInstrument
                 return "SNGS";
             case Issuer.SurgutNfgAp:
                 return "SNGSP";
+            case Issuer.Unipro:
+                return "UPRO";
             case Issuer.Uralkaliy:
                 return "URKA";
             case Issuer.Vtb:
@@ -216,8 +216,6 @@ public class TradeInstrument
         {
             case Issuer.EURUSD:
                 return "EURUSD";
-            case Issuer.Eon:
-                return "Э.ОН";
             case Issuer.Fsk:
                 return "ФСК";
             case Issuer.Gazprom:
@@ -248,6 +246,8 @@ public class TradeInstrument
                 return "СургутНефтеГаз ао";
             case Issuer.SurgutNfgAp:
                 return "СургутНефтеГаз ап";
+            case Issuer.Unipro:
+                return "Юнипро";
             case Issuer.Uralkaliy:
                 return "Уралкалий";
             case Issuer.Vtb:
@@ -352,14 +352,14 @@ public class TradeInstrument
         }
         switch (issureName)
         {
+            case "Э.ОН":
+                return Issuer.Unipro;
             case "Уралкалий":
                 return Issuer.Uralkaliy;
             case "Мосбиржа":
                 return Issuer.Moex;
             case "М.Видео":
                 return Issuer.Mvideo;
-            case "Э.ОН":
-                return Issuer.Eon;
             case "ММК":
                 return Issuer.Mmk;
             case "EURUSD":
@@ -403,8 +403,8 @@ public class TradeInstrument
                 return Issuer.Moex;
             case "М.Видео":
                 return Issuer.Mvideo;
-            case "Э.ОН":
-                return Issuer.Eon;
+            case "Юнипро":
+                return Issuer.Unipro;
             case "ММК":
                 return Issuer.Mmk;
             case "EURUSD":
