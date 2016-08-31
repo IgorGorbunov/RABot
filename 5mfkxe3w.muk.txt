@@ -1,0 +1,16 @@
+﻿refactoring littleTable
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD^1 <file>..." to unstage)
+#
+#	modified:   Models/LittleTable.cs
+#	modified:   QT.cs
+#	modified:   RABot.v11.suo
+#	modified:   TradeInstrument.cs
+#	modified:   Views/MainWindow.xaml
+#	modified:   Views/MainWindow.xaml.cs
+#
+
