@@ -10,9 +10,9 @@ namespace RABot.Models
         private const string LittleTemplateFileName = "littleTemplate.xls";
         private const string FolderName = "xls";
 
-        public static void SaveRomanIssuers(ObservableCollection <TableViewer> list)
+        public static void SaveRomanIssuers(ObservableCollection <LittleTableViewer> list)
         {
-            foreach (TableViewer tableViewer in list)
+            foreach (LittleTableViewer tableViewer in list)
             {
                 if (tableViewer.OpenValue > 0)
                 {
@@ -21,12 +21,12 @@ namespace RABot.Models
             }
         }
 
-        public static void SaveQuotes(ObservableCollection<TableViewer> list)
+        public static void SaveQuotes(ObservableCollection<LittleTableViewer> list)
         {
             RaBotProgram.Qt.LuaConnect();
             try
             {
-                foreach (TableViewer tableViewer in list)
+                foreach (LittleTableViewer tableViewer in list)
                 {
                     if (tableViewer.OpenValue > 0)
                     {
@@ -42,7 +42,7 @@ namespace RABot.Models
             }
         }
 
-        private static void SetRomanIssuer(TableViewer props)
+        private static void SetRomanIssuer(LittleTableViewer props)
         {
             string shortFileName = TradeInstrument.GetIssuerCode(props.Instrument);
             string fullPath = SetFile(shortFileName);

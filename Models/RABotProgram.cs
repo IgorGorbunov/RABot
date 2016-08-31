@@ -53,10 +53,6 @@ namespace RABot.Models
             return path;
         }
 
-
-        
-
-
         public static void SetFreeMoney()
         {
             ViewModels.MoneyPurse.SetLocalFreeMoney();

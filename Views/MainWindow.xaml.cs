@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using RABot.Models;
 using RABot.VM_Little_table;
+using RABot.ViewModels;
 using Forms = System.Windows.Forms;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 using MenuItem = System.Windows.Forms.MenuItem;
@@ -15,7 +16,8 @@ namespace RABot
     public partial class MainWindow
     {
         private Forms.NotifyIcon _ni;
-        private ObservableCollection <TableViewer> _currentLittleTable; 
+        private ObservableCollection <LittleTableViewer> _currentLittleTable;
+        private ObservableCollection<LittleDealsViewer> _currentLittleDeals;
 
         public MainWindow()
         {
@@ -27,7 +29,8 @@ namespace RABot
                 Timers.InitTimers(LabelMoexTime, LabelLocalTime);
                 NetClass.StartPing(ImgNetConn, ImgSlConn);
                 LittleTable.GetLittleStops();
-                LittleTable.GetCurrentDeals();
+                LittleTable.SetCurrentDeals();
+                SelCurrentLittleDeals();
                 RaBotProgram.SetFreeMoney();
             }
             catch (Exception)
@@ -76,9 +79,16 @@ namespace RABot
 
         private void SetLastLittleTable()
         {
-            _currentLittleTable = new ObservableCollection <TableViewer>
+            _currentLittleTable = new ObservableCollection<LittleTableViewer>
                     (LittleTable.GetLastLittleStops().Value);
             DgLittleTable.ItemsSource = _currentLittleTable;
+        }
+
+        private void SelCurrentLittleDeals()
+        {
+            _currentLittleDeals = new ObservableCollection<LittleDealsViewer>
+                    (LittleTable.CurrentDealViewers);
+            DgLittleDeals.ItemsSource = _currentLittleDeals;
         }
 
         //------------------------------------------------------------------------------------
@@ -118,7 +128,7 @@ namespace RABot
 
         private void BttnAddLittleStops_Click(object sender, RoutedEventArgs e)
         {
-            _currentLittleTable = new ObservableCollection<TableViewer>
+            _currentLittleTable = new ObservableCollection<LittleTableViewer>
                     (LittleTable.SetLittleStops());
             DgLittleTable.ItemsSource = _currentLittleTable;
             LittleTable.AppendLittleTable(DateTime.Today, _currentLittleTable);

@@ -415,6 +415,8 @@
     <Compile Include="Config.cs" />
     <Compile Include="Models\LittleTable.cs" />
     <Compile Include="Models\XlsDocs.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ViewModels\LittleDealsViewer.cs" />
     <Compile Include="ViewModels\MoneyPurse.cs" />
     <Compile Include="QT.cs" />
     <Compile Include="VM_Little_table\BigStopToColorConverter.cs" />
@@ -427,7 +429,7 @@
     <Compile Include="Models\RABotProgram.cs" />
     <Compile Include="Models\SLSettings.cs" />
     <Compile Include="StringFunctions.cs" />
-    <Compile Include="VM_Little_table\TableViewer.cs" />
+    <Compile Include="VM_Little_table\LittleTableViewer.cs" />
     <Compile Include="Timers.cs" />
     <Compile Include="TradeInstrument.cs" />
     <Compile Include="VM_Little_table\ValueToColorConverter.cs" />

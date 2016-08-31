@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using RABot.Annotations;
 
 namespace RABot.VM_Little_table
 {
-    public class TableViewer : INotifyPropertyChanged
+    public class LittleTableViewer : INotifyPropertyChanged
     {
         public TradeInstrument.Issuer Instrument
         {
@@ -71,7 +72,7 @@ namespace RABot.VM_Little_table
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //[NotifyPropertyChangedInvocator]
+        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

@@ -6,22 +6,47 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using RABot.VM_Little_table;
+using RABot.ViewModels;
 
 namespace RABot.Models
 {
     public static class LittleTable
     {
+        public static List<LittleDealsViewer> CurrentDealViewers
+        {
+            get
+            {
+                if (_currentDeals == null || _currentDeals.Count < 1)
+                {
+                    SetCurrentDeals();
+                }
+                List <LittleDealsViewer> list = new List <LittleDealsViewer>();
+                foreach (Deal deal in _currentDeals)
+                {
+                    LittleDealsViewer dealsViewer = new LittleDealsViewer();
+                    dealsViewer.InstrumentName = TradeInstrument.GetIssuerName(deal.Issuer);
+                    dealsViewer.IsLong = deal.IsLong;
+                    dealsViewer.OpenDate = deal.OpenDate;
+                    dealsViewer.OpenValue = deal.OpenValue.Value;
+                    dealsViewer.Volume = deal.Volume;
+                    dealsViewer.Value = deal.Volume*deal.OpenValue.Value;
+                    list.Add(dealsViewer);
+                }
+                return list;
+            }
+        }
+
         private const string Folder = "littleTable";
         private const string FileName = "littleTable.txt";
         private const string CopyFileName = "littleTableCopy.txt";
-        private const string CurrentDeals = "littleTableCurrentDeals.txt";
+        private const string CurrentDealsFileName = "littleTableCurrentDeals.txt";
 
-        private static Dictionary <DateTime, List <TableViewer>> _littleDeals;
+        private static Dictionary <DateTime, List <LittleTableViewer>> _littleDeals;
         private static List <Deal> _currentDeals; 
 
-        public static void AppendLittleTable(DateTime dateTime, ObservableCollection <TableViewer> table)
+        public static void AppendLittleTable(DateTime dateTime, ObservableCollection <LittleTableViewer> table)
         {
-            List <TableViewer> littleTable = _littleDeals[dateTime.Date];
+            List <LittleTableViewer> littleTable = _littleDeals[dateTime.Date];
             {
                 for (int i = 0; i < littleTable.Count; i++)
                 {
@@ -36,10 +61,10 @@ namespace RABot.Models
                     (Application.StartupPath, Config.MiscFolderName, Folder, CopyFileName);
             using (StreamWriter sw = new StreamWriter(newFilePath, false, Encoding.UTF8))
             {
-                foreach (KeyValuePair <DateTime, List <TableViewer>> dayLittleTable in _littleDeals)
+                foreach (KeyValuePair <DateTime, List <LittleTableViewer>> dayLittleTable in _littleDeals)
                 {
                     sw.WriteLine(dayLittleTable.Key.ToShortDateString());
-                    foreach (TableViewer dealParams in dayLittleTable.Value)
+                    foreach (LittleTableViewer dealParams in dayLittleTable.Value)
                     {
                         sw.Write(TradeInstrument.GetIssuerName(dealParams.Instrument));
                         sw.Write(';');
@@ -68,13 +93,13 @@ namespace RABot.Models
 
         }
 
-        public static void SetOpenValuesLittleTable(ref ObservableCollection<TableViewer> table)
+        public static void SetOpenValuesLittleTable(ref ObservableCollection<LittleTableViewer> table)
         {
             RaBotProgram.Qt = new QT();
             RaBotProgram.Qt.LuaConnect();
             try
             {
-                foreach (TableViewer tableViewer in table)
+                foreach (LittleTableViewer tableViewer in table)
                 {
                     RaBotProgram.Qt.RegisterSecurity(TradeInstrument.GetIssuerCode(tableViewer.Instrument));
                 }
@@ -96,11 +121,11 @@ namespace RABot.Models
 
         public static void GetLittleStops()
         {
-            _littleDeals = new Dictionary <DateTime, List <TableViewer>>();
+            _littleDeals = new Dictionary <DateTime, List <LittleTableViewer>>();
             string filePath = Path.Combine(Application.StartupPath, Config.MiscFolderName, Folder, FileName);
             if (File.Exists(filePath))
             {
-                List <TableViewer> deals = new List <TableViewer>();
+                List <LittleTableViewer> deals = new List <LittleTableViewer>();
                 DateTime date = DateTime.Today;
                 using (StreamReader streamReader = new StreamReader(filePath, Encoding.UTF8))
                 {
@@ -110,7 +135,7 @@ namespace RABot.Models
                         string[] parametrs = line.Split(';');
                         if (parametrs.Length > 1)
                         {
-                            TableViewer tbV = new TableViewer();
+                            LittleTableViewer tbV = new LittleTableViewer();
                             tbV.Instrument = TradeInstrument.GetIssuer2Name(parametrs[0]);
                             int isLong = Int32.Parse(parametrs[1]);
                             switch (isLong)
@@ -149,11 +174,11 @@ namespace RABot.Models
             }
         }
 
-        public static void GetCurrentDeals()
+        public static void SetCurrentDeals()
         {
             _currentDeals = new List <Deal>();
             StreamReader streamReader = new StreamReader
-                    (Path.Combine(Application.StartupPath, Config.MiscFolderName, Folder, CurrentDeals),
+                    (Path.Combine(Application.StartupPath, Config.MiscFolderName, Folder, CurrentDealsFileName),
                      Encoding.UTF8);
             try
             {
@@ -180,7 +205,7 @@ namespace RABot.Models
             }
         }
 
-        public static KeyValuePair <DateTime, List <TableViewer>> GetLastLittleStops()
+        public static KeyValuePair <DateTime, List <LittleTableViewer>> GetLastLittleStops()
         {
             if (_littleDeals == null)
             {
@@ -189,15 +214,15 @@ namespace RABot.Models
             return _littleDeals.Last();
         }
 
-        public static ObservableCollection <TableViewer> SetLittleStops()
+        public static ObservableCollection <LittleTableViewer> SetLittleStops()
         {
             if (Clipboard.ContainsText())
             {
-                ObservableCollection <TableViewer> littleTable;
+                ObservableCollection <LittleTableViewer> littleTable;
                 if (_littleDeals.ContainsKey(DateTime.Today))
                 {
                     MessageBox.Show("Таблица на сегодня уже записана!");
-                    littleTable = new ObservableCollection <TableViewer>
+                    littleTable = new ObservableCollection <LittleTableViewer>
                             (_littleDeals[DateTime.Today]);
                 }
                 else
@@ -232,12 +257,12 @@ namespace RABot.Models
             SaveCurrentDeals();
         }
 
-        private static ObservableCollection <TableViewer> FillLittleTable(Dictionary <TradeInstrument.Issuer, double> instrumentList)
+        private static ObservableCollection <LittleTableViewer> FillLittleTable(Dictionary <TradeInstrument.Issuer, double> instrumentList)
         {
-            List <TableViewer> deals = new List <TableViewer>();
+            List <LittleTableViewer> deals = new List <LittleTableViewer>();
             foreach (KeyValuePair <TradeInstrument.Issuer, double> dealProps in instrumentList)
             {
-                TableViewer dealParams = new TableViewer();
+                LittleTableViewer dealParams = new LittleTableViewer();
                 dealParams.Instrument = dealProps.Key;
                 dealParams.IsLong = false;
                 dealParams.OpenValue = 0.0m;
@@ -245,7 +270,7 @@ namespace RABot.Models
                 dealParams.Profit = null;
                 deals.Add(dealParams);
             }
-            return new ObservableCollection <TableViewer>(deals);
+            return new ObservableCollection <LittleTableViewer>(deals);
         }
 
         private static Dictionary <TradeInstrument.Issuer, double> GetInstruments(string text)
@@ -281,7 +306,7 @@ namespace RABot.Models
         {
             StreamWriter streamWriter = new StreamWriter
                     (Path.Combine
-                             (Application.StartupPath, Config.MiscFolderName, Folder, CurrentDeals), false, Encoding.UTF8);
+                             (Application.StartupPath, Config.MiscFolderName, Folder, CurrentDealsFileName), false, Encoding.UTF8);
             try
             {
                 foreach (Deal deal in _currentDeals)
