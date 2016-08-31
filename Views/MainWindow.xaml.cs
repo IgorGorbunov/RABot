@@ -155,6 +155,11 @@ namespace RABot
             LittleTable.SetNewDeal(testDeal);
         }
 
+        void DataGridButtonClick(object sender, RoutedEventArgs e)
+        {
+            Forms.MessageBox.Show("Test");
+        }
+
 
     }
 }

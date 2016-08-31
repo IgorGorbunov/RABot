@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using RABot.VM_Little_table;
 
@@ -194,9 +193,19 @@ namespace RABot.Models
         {
             if (Clipboard.ContainsText())
             {
-                Dictionary <TradeInstrument.Issuer, double> list = GetInstruments(Clipboard.GetText());
-                ObservableCollection <TableViewer> littleTable = FillLittleTable(list);
-                _littleDeals.Add(DateTime.Today, littleTable.ToList());
+                ObservableCollection <TableViewer> littleTable;
+                if (_littleDeals.ContainsKey(DateTime.Today))
+                {
+                    MessageBox.Show("Таблица на сегодня уже записана!");
+                    littleTable = new ObservableCollection <TableViewer>
+                            (_littleDeals[DateTime.Today]);
+                }
+                else
+                {
+                    Dictionary<TradeInstrument.Issuer, double> list = GetInstruments(Clipboard.GetText());
+                    littleTable = FillLittleTable(list);
+                    _littleDeals.Add(DateTime.Today, littleTable.ToList());
+                }
                 return littleTable;
             }
             return null;
