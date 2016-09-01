@@ -2,11 +2,13 @@
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using RABot.Models;
 
 namespace RABot.ViewModels
 {
     public class MoneyPurse
     {
+        private static decimal _freeMoneyWithShort;
         private static decimal _freeMoney;
 
         public static decimal FreeMoney
@@ -16,6 +18,16 @@ namespace RABot.ViewModels
             {
                 _freeMoney = value;
                 RaiseFreeMoneyChanged();
+            }
+        }
+
+        public static decimal FreeMoneyWithShort
+        {
+            get { return _freeMoneyWithShort; }
+            private set
+            {
+                _freeMoneyWithShort = value;
+                RaiseFreeMoneyWithShortChanged();
             }
         }
 
@@ -37,13 +49,23 @@ namespace RABot.ViewModels
                     FreeMoney = val;
                 }
             }
+            FreeMoneyWithShort = FreeMoney - LittleTable.GetShortSum();
         }
 
         public static event EventHandler FreeMoneyChanged;
 
-        public static void RaiseFreeMoneyChanged()
+        public static event EventHandler FreeMoneyWithShortChanged;
+
+        private static void RaiseFreeMoneyChanged()
         {
             EventHandler handler = FreeMoneyChanged;
+            if (handler != null)
+                handler(null, EventArgs.Empty);
+        }
+
+        private static void RaiseFreeMoneyWithShortChanged()
+        {
+            EventHandler handler = FreeMoneyWithShortChanged;
             if (handler != null)
                 handler(null, EventArgs.Empty);
         }

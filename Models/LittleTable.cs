@@ -44,6 +44,23 @@ namespace RABot.Models
         private static Dictionary <DateTime, List <LittleTableViewer>> _littleDeals;
         private static List <Deal> _currentDeals; 
 
+        public static decimal GetShortSum()
+        {
+            if (_littleDeals == null || _littleDeals.Count < 1)
+            {
+                return 0.0m;
+            }
+            decimal shortSum = 0.0m;
+            foreach (Deal currentDeal in _currentDeals)
+            {
+                if (!currentDeal.IsLong)
+                {
+                    shortSum += currentDeal.OpenValue.Value*currentDeal.Volume;
+                }
+            }
+            return shortSum;
+        }
+
         public static void AppendLittleTable(DateTime dateTime, ObservableCollection <LittleTableViewer> table)
         {
             List <LittleTableViewer> littleTable = _littleDeals[dateTime.Date];
