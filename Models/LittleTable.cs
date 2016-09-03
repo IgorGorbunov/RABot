@@ -18,7 +18,7 @@ namespace RABot.Models
             {
                 if (_currentDeals == null || _currentDeals.Count < 1)
                 {
-                    SetCurrentDeals();
+                    ReadCurrentDeals();
                 }
                 List <LittleDealsViewer> list = new List <LittleDealsViewer>();
                 foreach (Deal deal in _currentDeals)
@@ -191,7 +191,7 @@ namespace RABot.Models
             }
         }
 
-        public static void SetCurrentDeals()
+        public static void ReadCurrentDeals()
         {
             _currentDeals = new List <Deal>();
             StreamReader streamReader = new StreamReader

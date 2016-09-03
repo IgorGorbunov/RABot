@@ -29,8 +29,9 @@ namespace RABot
                 Timers.InitTimers(LabelMoexTime, LabelLocalTime);
                 NetClass.StartPing(ImgNetConn, ImgSlConn);
                 LittleTable.GetLittleStops();
-                LittleTable.SetCurrentDeals();
-                SelCurrentLittleDeals();
+                SetLastLittleTable();
+                LittleTable.ReadCurrentDeals();
+                GetCurrentLittleDeals();
                 RaBotProgram.SetFreeMoney();
             }
             catch (Exception)
@@ -84,7 +85,7 @@ namespace RABot
             DgLittleTable.ItemsSource = _currentLittleTable;
         }
 
-        private void SelCurrentLittleDeals()
+        private void GetCurrentLittleDeals()
         {
             _currentLittleDeals = new ObservableCollection<LittleDealsViewer>
                     (LittleTable.CurrentDealViewers);
