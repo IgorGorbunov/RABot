@@ -46,14 +46,14 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="235*"/>
-            <ColumnDefinition Width="360*"/>
-            <ColumnDefinition Width="111*"/>
+            <ColumnDefinition Width="379*"/>
+            <ColumnDefinition Width="727*"/>
+            <ColumnDefinition Width="166*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="9*"/>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="351*"/>
+            <RowDefinition Height="193*"/>
         </Grid.RowDefinitions>
         <Button x:Name="BttnTest" Content="Button" Margin="10,10,10,10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="BttnTest_Click"/>
         <Grid Grid.Row="1"  Margin="0">
@@ -128,19 +128,19 @@
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0" Margin="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="272*"/>
+                <ColumnDefinition Width="107*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Content="Свободные средства" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <Label Content="локально, с учётом коротких сделок" Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <Label Content="локально" Grid.Row="2" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Content="{Binding FreeMoneyWithShort,Source={StaticResource MoneyPurse}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True"/>
-            <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Content="{Binding FreeMoney,Source={StaticResource MoneyPurse}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Свободные средства" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Height="45" Width="125"/>
+            <Label Content="локально, с учётом коротких сделок" Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Height="26" Width="272"/>
+            <Label Content="локально" Grid.Row="2" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Height="26" Width="62"/>
+            <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Content="{Binding FreeMoneyWithShort,Source={StaticResource MoneyPurse}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ClipToBounds="True" Height="26" Width="97"/>
+            <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center" Content="{Binding FreeMoney,Source={StaticResource MoneyPurse}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Height="26" Width="97"/>
         </Grid>
         <DataGrid x:Name="DgLittleDeals" DataContext="{StaticResource ItemCollectionViewSourceLittleDeals}" ItemsSource="{Binding}" 
                   AutoGenerateColumns="False" Grid.Column="1" Margin="10,10,10,10" Grid.Row="2" CanUserReorderColumns="False" 
@@ -159,7 +159,8 @@
                 <DataGridTextColumn Header="Цена входа" Binding="{Binding Path=OpenValue, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Сумма входа" Binding="{Binding Path=Value, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Header="Лонг" Binding="{Binding Path=IsLong, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Переворот" Binding="{Binding Path=StopValue, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Переворот" Binding="{Binding Path=LastStopValue, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Дата установки переворота" Binding="{Binding Path=LastStopDate, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

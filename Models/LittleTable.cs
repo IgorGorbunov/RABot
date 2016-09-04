@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,8 @@ namespace RABot.Models
                     dealsViewer.OpenValue = deal.OpenValue.Value;
                     dealsViewer.Volume = deal.Volume;
                     dealsViewer.Value = deal.Volume*deal.OpenValue.Value;
+                    dealsViewer.LastStopValue = deal.LastStopValue;
+                    dealsViewer.LastStopDate = deal.LastStopDate;
                     list.Add(dealsViewer);
                 }
                 return list;
@@ -205,13 +208,15 @@ namespace RABot.Models
                     if (string.IsNullOrEmpty(line))
                         break;
                     string[] split = line.Split(';');
-                    DateTime date = StringFunctions.GetDate(split[0], "dd.MM.yyyy");
+                    DateTime date = DateTime.ParseExact(split[0], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                     TradeInstrument.Issuer issuer = TradeInstrument.GetIssuer(split[1]);
                     decimal openVal = StringFunctions.ParseDecimal(split[2]);
                     string dir = split[3];
                     int vol = int.Parse(split[4]);
+                    decimal stopVal = StringFunctions.ParseDecimal(split[5]);
+                    DateTime stopDate = DateTime.ParseExact(split[6], "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture);
 
-                    Deal deal = new Deal(issuer, dir, date, openVal, vol);
+                    Deal deal = new Deal(issuer, dir, date, openVal, vol, stopVal, stopDate);
                     _currentDeals.Add(deal);
                 }
 
@@ -274,6 +279,21 @@ namespace RABot.Models
             SaveCurrentDeals();
         }
 
+        private static decimal GetTodeyStopValue(TradeInstrument.Issuer issuer)
+        {
+            if (!_littleDeals.ContainsKey(DateTime.Today))
+                return -1m;
+
+            List <LittleTableViewer> list = _littleDeals[DateTime.Today];
+            foreach (LittleTableViewer littleTableViewer in list)
+            {
+                if (littleTableViewer.Instrument != issuer)
+                    continue;
+                return littleTableViewer.StopValue;
+            }
+            return -1m;
+        }
+
         private static ObservableCollection <LittleTableViewer> FillLittleTable(Dictionary <TradeInstrument.Issuer, double> instrumentList)
         {
             List <LittleTableViewer> deals = new List <LittleTableViewer>();
@@ -329,8 +349,8 @@ namespace RABot.Models
                 foreach (Deal deal in _currentDeals)
                 {
                     streamWriter.WriteLine
-                            ("{0};{1};{2};{3};{4}", deal.OpenDate.ToShortDateString(), TradeInstrument.GetIssuerCode(deal.Issuer),
-                             deal.OpenValue, deal.DirectionStr, deal.Volume);
+                            ("{0};{1};{2};{3};{4};{5};{6}", deal.OpenDate.ToString("dd.MM.yyyy HH:mm:ss"), TradeInstrument.GetIssuerCode(deal.Issuer),
+                             deal.OpenValue, deal.DirectionStr, deal.Volume, deal.LastStopValue, deal.LastStopDate.ToString("dd.MM.yyyy HH:mm:ss"));
                 }
                 streamWriter.Flush();
             }

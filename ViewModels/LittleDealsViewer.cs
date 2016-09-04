@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using RABot.Annotations;
 
 namespace RABot.ViewModels
 {
@@ -47,7 +40,13 @@ namespace RABot.ViewModels
             set;
         }
 
-        public decimal StopValue
+        public decimal LastStopValue
+        {
+            get;
+            set;
+        }
+
+        public DateTime LastStopDate
         {
             get;
             set;

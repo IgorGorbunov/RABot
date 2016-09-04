@@ -164,6 +164,22 @@ public class Deal
         get { return _stops; }
     }
     /// <summary>
+    /// Значение последнего установленного стопа.
+    /// </summary>
+    public decimal LastStopValue
+    {
+        get;
+        private set;
+    }
+    /// <summary>
+    /// Дата и время последнего установленного стопа
+    /// </summary>
+    public DateTime LastStopDate
+    {
+        get;
+        private set;
+    }
+    /// <summary>
     /// Брокерская комиссия (за сделку + комиссия за шорт)
     /// </summary>
     public decimal Costs
@@ -237,12 +253,14 @@ public class Deal
     /// <param name="direction">Направление сделки</param>
     /// <param name="openDate">Дата открытия сделки</param>
     /// <param name="openValue">Цена открытия</param>
-    public Deal(TradeInstrument.Issuer issure, string direction, DateTime openDate, decimal? openValue, int volume)
+    public Deal(TradeInstrument.Issuer issure, string direction, DateTime openDate, decimal? openValue, int volume, decimal lastStopValue, DateTime lastStopDate)
         : this(openDate, openValue)
     {
         SetDirection(direction);
         Issuer = issure;
         Volume = volume;
+        LastStopValue = lastStopValue;
+        LastStopDate = lastStopDate;
     }
 
     private Deal(DateTime openDate, decimal? openValue)

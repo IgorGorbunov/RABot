@@ -30,13 +30,13 @@ namespace RABot
                 NetClass.StartPing(ImgNetConn, ImgSlConn);
                 LittleTable.GetLittleStops();
                 SetLastLittleTable();
-                LittleTable.ReadCurrentDeals();
                 GetCurrentLittleDeals();
+                LittleTable.ReadCurrentDeals();
                 RaBotProgram.SetFreeMoney();
             }
             catch (Exception)
             {
-
+                Forms.MessageBox.Show("Ошибка в главном окне!");
                 throw;
             }
             finally
@@ -49,7 +49,10 @@ namespace RABot
 
         private void CleanUp()
         {
-            RaBotProgram.Qt.Dispose();
+            if (RaBotProgram.Qt != null)
+            {
+                RaBotProgram.Qt.Dispose();
+            }
             NetClass.DisposeAsync();
             RaBotProgram.DeleteTempFolder();
             _ni.Dispose();
@@ -162,8 +165,8 @@ namespace RABot
 
         private void BttnTryToCreateDeals_Click(object sender, RoutedEventArgs e)
         {
-            Deal testDeal = new Deal(TradeInstrument.Issuer.Moex, "ЛОНГ", DateTime.Today, 130.7m, 10);
-            LittleTable.SetNewDeal(testDeal);
+            //Deal testDeal = new Deal(TradeInstrument.Issuer.Moex, "ЛОНГ", DateTime.Today, 130.7m, 10);
+            //LittleTable.SetNewDeal(testDeal);
         }
 
         void DataGridButtonClick(object sender, RoutedEventArgs e)
